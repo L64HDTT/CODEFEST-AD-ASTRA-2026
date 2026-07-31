@@ -132,9 +132,10 @@ def guardar_resultados_jsonl(lista_de_resultados, nombre_archivo="resultados.jso
 # ---------------------------------------------------------
 # BLOQUE PRINCIPAL DE EJECUCIÓN
 # ---------------------------------------------------------
+
 if __name__ == "__main__":
-    # index, metadata = cargar_base_vectorial()
-    # lista_resultados = procesar_consultas(index, metadata)
+    index, metadata = cargar_base_vectorial()
+    lista_resultados = procesar_consultas(index, metadata)
     
     # Para probar el formato ahora mismo sin el index real, pasamos una lista de prueba vacía:
     lista_de_prueba = [{"query_id": "q001", "documents": [{"rank": 1, "doc_id": "DOC-XYZ"}], "fragments": []}]
