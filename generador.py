@@ -5,6 +5,17 @@ from transformers import AutoTokenizer, AutoModel
 import torch 
 
 # ---------------------------------------------------------
+# 0. Carga de las consultas desde un archivo JSON
+# ---------------------------------------------------------
+
+def cargar_consultas(ruta_archivo="consultas.json"):
+    """Carga las 50 consultas desde un archivo JSON a un diccionario."""
+    print(f"Cargando consultas desde {ruta_archivo}...")
+    with open(ruta_archivo, "r", encoding="utf-8") as f:
+        consultas_texto = json.load(f)
+    return consultas_texto
+
+# ---------------------------------------------------------
 # 1. CONFIGURACIÓN DEL MODELO (El mismo que usará el arquitecto vectorial)
 # ---------------------------------------------------------
 
@@ -51,7 +62,6 @@ def codificar_texto(texto):
 
 def procesar_consultas(index, metadata, consultas_texto, tokenizer, model):
     lista_de_resultados = []
-    
     for q_id, texto_consulta in consultas_texto.items():
         # A. Convertir la pregunta en vector
         vector_consulta = codificar_texto(texto_consulta, tokenizer, model)
@@ -130,13 +140,24 @@ def guardar_resultados_jsonl(lista_de_resultados, nombre_archivo="resultados.jso
     print("¡Archivo generado con éxito!")
 
 # ---------------------------------------------------------
-# BLOQUE PRINCIPAL DE EJECUCIÓN
+# 5. BLOQUE PRINCIPAL DE EJECUCIÓN
 # ---------------------------------------------------------
 
 if __name__ == "__main__":
-    index, metadata = cargar_base_vectorial()
-    lista_resultados = procesar_consultas(index, metadata)
+    # 1. Configurar modelo (asegúrate de instanciar tokenizer y model aquí arriba)
+    print("Cargando modelo y tokenizador...")
+    # tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
+    # model = AutoModel.from_pretrained(nombre_modelo)
     
-    # Para probar el formato ahora mismo sin el index real, pasamos una lista de prueba vacía:
-    lista_de_prueba = [{"query_id": "q001", "documents": [{"rank": 1, "doc_id": "DOC-XYZ"}], "fragments": []}]
-    guardar_resultados_jsonl(lista_de_prueba)
+    # 2. Cargar base vectorial y metadatos
+    # index, metadata = cargar_base_vectorial()
+    
+    # 3. Cargar las consultas desde el JSON
+    consultas_texto = cargar_consultas("consultas.json")
+    
+    # 4. Procesar las consultas (pasando todos los argumentos necesarios)
+    print("Procesando consultas y buscando en FAISS...")
+    lista_resultados = procesar_consultas(index, metadata, consultas_texto, tokenizer, model)
+    
+    # 5. Guardar los resultados en el formato estricto
+    guardar_resultados_jsonl(lista_resultados, "resultados.jsonl")
