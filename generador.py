@@ -16,7 +16,20 @@ def cargar_consultas(ruta_archivo="consultas.json"):
     return consultas_texto
 
 # ---------------------------------------------------------
-# 1. CONFIGURACIÓN DEL MODELO (El mismo que usará el arquitecto vectorial)
+# 1. Carga de la metadata desde un archivo JSONL
+# ---------------------------------------------------------
+
+def cargar_tu_metadata(ruta_archivo):
+    """Carga el metadata.jsonl donde el índice de la línea es el ID de FAISS."""
+    metadata = {}
+    with open(ruta_archivo, "r", encoding="utf-8") as f:
+        for i, linea in enumerate(f):
+            # FAISS asigna IDs internos secuenciales (0, 1, 2...) que coinciden con las líneas
+            metadata[str(i)] = json.loads(linea)
+    return metadata
+
+# ---------------------------------------------------------
+# 2. CONFIGURACIÓN DEL MODELO 
 # ---------------------------------------------------------
 
 nombre_modelo = "distiluse-base-multilingual-cased-v1" # Ejemplo de modelo
@@ -24,7 +37,7 @@ tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
 model = AutoModel.from_pretrained(nombre_modelo)
 
 # ---------------------------------------------------------
-# 2. CARGA DE LA BASE VECTORIAL
+# 3. CARGA DE LA BASE VECTORIAL
 # ---------------------------------------------------------
 
 def cargar_base_vectorial():
@@ -40,10 +53,10 @@ def cargar_base_vectorial():
     pass
 
 # ---------------------------------------------------------
-# 3. PROCESAMIENTO DE LAS CONSULTAS
+# 4. PROCESAMIENTO DE LAS CONSULTAS
 # ---------------------------------------------------------
 
-def codificar_texto(texto):
+def codificar_texto(texto, tokenizer, model):
     """Convierte el texto de la consulta en un vector numérico"""
     inputs = tokenizer(texto, return_tensors="pt", padding=True, truncation=True)
     with torch.no_grad():
@@ -63,57 +76,54 @@ def codificar_texto(texto):
 def procesar_consultas(index, metadata, consultas_texto, tokenizer, model):
     lista_de_resultados = []
     for q_id, texto_consulta in consultas_texto.items():
-        # A. Convertir la pregunta en vector
         vector_consulta = codificar_texto(texto_consulta, tokenizer, model)
         
-        # B. Buscar en FAISS los 10 fragmentos más similares
-        # FAISS devuelve tanto las distancias (scores) como los índices internos
-        distancias, indices_faiss = index.search(vector_consulta, k=10)
+        # B. Buscar en FAISS más fragmentos (ej. 30) para asegurar que haya al menos 3 documentos distintos
+        distancias, indices_faiss = index.search(vector_consulta, k=30) 
         
         fragmentos_encontrados = []
-        scores_documentos = {} # Diccionario para agrupar puntuaciones por doc_id
+        scores_documentos = {} 
         
         # C. Construir formato de fragmentos y agrupar para documentos
         for rango, idx in enumerate(indices_faiss[0]):
-            # FAISS devuelve enteros, asegúrate de que tu llave en metadata.jsonl coincida (str o int)
             idx_clave = str(idx) if isinstance(list(metadata.keys())[0], str) else idx
             fragmento_info = metadata[idx_clave]
             
             doc_id = fragmento_info["doc_id"]
-            score_actual = float(distancias[0][rango]) # Puntuación de similitud
+            score_actual = float(distancias[0][rango]) 
             
-            # --- Regla estricta: Máximo 250 palabras ---
-            texto_fragmento = fragmento_info["text"]
-            palabras = texto_fragmento.split()
-            if len(palabras) > 250:
-                texto_fragmento = " ".join(palabras[:250])
-                print(f"Aviso: Fragmento {fragmento_info['chunk_id']} excedió las 250 palabras y fue truncado.")
+            # Solo guardamos los primeros 10 para la lista de fragmentos exigida
+            if len(fragmentos_encontrados) < 10:
+                texto_fragmento = fragmento_info["text"]
+                palabras = texto_fragmento.split()
+                if len(palabras) > 250:
+                    texto_fragmento = " ".join(palabras[:250])
+                    print(f"Aviso: Fragmento {fragmento_info['chunk_id']} truncado.")
+                
+                fragmentos_encontrados.append({
+                    "rank": len(fragmentos_encontrados) + 1,
+                    "chunk_id": fragmento_info["chunk_id"],
+                    "doc_id": doc_id,
+                    "text": texto_fragmento
+                })
             
-            # Agregar a la lista de los 10 fragmentos
-            fragmentos_encontrados.append({
-                "rank": rango + 1,
-                "chunk_id": fragmento_info["chunk_id"],
-                "doc_id": doc_id,
-                "text": texto_fragmento
-            })
-            
-            # --- Agregación a nivel de documento (Estrategia: Max Pooling) ---
+            # --- Agregación a nivel de documento (Max Pooling) usando los 30 fragmentos ---
             if doc_id not in scores_documentos:
                 scores_documentos[doc_id] = score_actual
             else:
-                # Si el documento ya existe, guardamos la puntuación más alta de sus fragmentos
                 if score_actual > scores_documentos[doc_id]:
                     scores_documentos[doc_id] = score_actual
                     
-        # Ordenar los documentos de mayor a menor según su score agregado
         documentos_ordenados = sorted(scores_documentos.items(), key=lambda item: item[1], reverse=True)
         
-        # D. Armar la lista de los 3 documentos más relevantes
+        # D. Armar la lista de exactamente los 3 documentos más relevantes
         documentos_encontrados = []
-        for i, (doc_id, score) in enumerate(documentos_ordenados[:3]):
+        # Si por algún caso extremo hay menos de 3 docs en 30 fragmentos, toma los que haya
+        tope_docs = min(3, len(documentos_ordenados)) 
+        for i in range(tope_docs):
             documentos_encontrados.append({
                 "rank": i + 1,
-                "doc_id": doc_id
+                "doc_id": documentos_ordenados[i][0]
             })
             
         # E. Armar el resultado final para esta consulta
@@ -127,7 +137,7 @@ def procesar_consultas(index, metadata, consultas_texto, tokenizer, model):
     return lista_de_resultados
 
 # ---------------------------------------------------------
-# 4. EXPORTAR AL FORMATO ESTRICTO JSON LINES (JSONL)
+# 5. EXPORTAR AL FORMATO ESTRICTO JSON LINES (JSONL)
 # ---------------------------------------------------------
 
 def guardar_resultados_jsonl(lista_de_resultados, nombre_archivo="resultados.jsonl"):
@@ -140,17 +150,17 @@ def guardar_resultados_jsonl(lista_de_resultados, nombre_archivo="resultados.jso
     print("¡Archivo generado con éxito!")
 
 # ---------------------------------------------------------
-# 5. BLOQUE PRINCIPAL DE EJECUCIÓN
+# 6. BLOQUE PRINCIPAL DE EJECUCIÓN
 # ---------------------------------------------------------
 
 if __name__ == "__main__":
-    # 1. Configurar modelo (asegúrate de instanciar tokenizer y model aquí arriba)
+    # 1. Configurar modelo y tokenizador
     print("Cargando modelo y tokenizador...")
-    # tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
-    # model = AutoModel.from_pretrained(nombre_modelo)
+    tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
+    model = AutoModel.from_pretrained(nombre_modelo)
     
     # 2. Cargar base vectorial y metadatos
-    # index, metadata = cargar_base_vectorial()
+    index, metadata = cargar_base_vectorial()
     
     # 3. Cargar las consultas desde el JSON
     consultas_texto = cargar_consultas("consultas.json")
