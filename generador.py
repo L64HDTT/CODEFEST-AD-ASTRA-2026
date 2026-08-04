@@ -1,10 +1,10 @@
 import json
 import faiss
 import numpy as np
-from transformers import AutoTokenizer, AutoModel
+from sentence_transformers import SentenceTransformer
 import torch 
 
-# ---------------------------------------------------------
+# ----------------- ----------------------------------------
 # 0. Carga de las consultas desde un archivo JSON
 # ---------------------------------------------------------
 
@@ -30,11 +30,10 @@ def cargar_tu_metadata(ruta_archivo):
 
 # ---------------------------------------------------------
 # 2. CONFIGURACIÓN DEL MODELO 
-# ---------------------------------------------------------
+# --------------------------------------------------------
 
-nombre_modelo = "distiluse-base-multilingual-cased-v1" # Ejemplo de modelo
-tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
-model = AutoModel.from_pretrained(nombre_modelo)
+nombre_modelo = "sentence-transformers/distiluse-base-multilingual-cased-v1" 
+model = SentenceTransformer(nombre_modelo)
 
 # ---------------------------------------------------------
 # 3. CARGA DE LA BASE VECTORIAL
@@ -56,27 +55,21 @@ def cargar_base_vectorial():
 # 4. PROCESAMIENTO DE LAS CONSULTAS
 # ---------------------------------------------------------
 
-def codificar_texto(texto, tokenizer, model):
-    """Convierte el texto de la consulta en un vector numérico"""
-    inputs = tokenizer(texto, return_tensors="pt", padding=True, truncation=True)
-    with torch.no_grad():
-        outputs = model(**inputs)
-
-    # Extraer el vector usando el estado oculto (mean pooling)
-    embeddings = outputs.last_hidden_state.mean(dim=1)
-
-    # 1. Convertir el tensor de PyTorch a un arreglo NumPy tipo float32 (FAISS lo requiere)
-    vector_numpy = embeddings.detach().cpu().numpy().astype('float32')
-
-    # 2. Normalizar el vector a norma unitaria (L2) para aplicar similitud coseno
-    faiss.normalize_L2(vector_numpy)
-
+def codificar_texto(texto, model):
+    """
+    Convierte el texto de la consulta en un vector numérico normalizado.
+    Se espera que 'model' sea una instancia de SentenceTransformer.
+    """
+    # encode() maneja la tokenización, el pooling, la conversión a NumPy 
+    # y la normalización en un solo paso.
+    vector_numpy = model.encode([texto], normalize_embeddings=True)
+    
     return vector_numpy
 
-def procesar_consultas(index, metadata, consultas_texto, tokenizer, model):
+def procesar_consultas(index, metadata, consultas_texto, model):
     lista_de_resultados = []
     for q_id, texto_consulta in consultas_texto.items():
-        vector_consulta = codificar_texto(texto_consulta, tokenizer, model)
+        vector_consulta = codificar_texto(texto_consulta, model)
         
         # B. Buscar en FAISS más fragmentos (ej. 30) para asegurar que haya al menos 3 documentos distintos
         distancias, indices_faiss = index.search(vector_consulta, k=30) 
@@ -155,9 +148,10 @@ def guardar_resultados_jsonl(lista_de_resultados, nombre_archivo="resultados.jso
 
 if __name__ == "__main__":
     # 1. Configurar modelo y tokenizador
-    print("Cargando modelo y tokenizador...")
-    tokenizer = AutoTokenizer.from_pretrained(nombre_modelo)
-    model = AutoModel.from_pretrained(nombre_modelo)
+    print("Cargando modelo...")
+    # Se carga el modelo una sola vez y se usa tanto para el indexador como para el generador
+    nombre_modelo = 'sentence-transformers/distiluse-base-multilingual-cased-v1'
+    model = SentenceTransformer(nombre_modelo)
     
     # 2. Cargar base vectorial y metadatos
     index, metadata = cargar_base_vectorial()
@@ -167,7 +161,32 @@ if __name__ == "__main__":
     
     # 4. Procesar las consultas (pasando todos los argumentos necesarios)
     print("Procesando consultas y buscando en FAISS...")
-    lista_resultados = procesar_consultas(index, metadata, consultas_texto, tokenizer, model)
+    lista_resultados = procesar_consultas(index, metadata, consultas_texto, model)
+
+    # =========================================================
+    # VISUALIZADOR DE RANKING EN CONSOLA
+    # =========================================================
+
+    print("\n" + "="*50)
+    print("RESULTADOS DE LA BÚSQUEDA")
+    print("="*50)
+    
+    for resultado in lista_resultados:
+        print(f"\n Consulta ID: {resultado['query_id']}")
+        print(f"Texto: {consultas_texto[resultado['query_id']]}")
+        
+        print("\n TOP 3 DOCUMENTOS:")
+        for doc in resultado['documents']:
+            print(f"Rank {doc['rank']}: Documento {doc['doc_id']}")
+            
+        print("\n TOP FRAGMENTOS (Mostrando los 10 mejores):")
+        # Mostramos solo los primeros 3 fragmentos para no saturar la terminal
+        for frag in resultado['fragments'][:10]: 
+            print(f"Rank {frag['rank']} | {frag['doc_id']} | {frag['chunk_id']}")
+            print(f"      Texto: {frag['text'][:90]}...") # Truncamos el texto a 90 caracteres
+            
+    print("\n" + "="*50 + "\n")
+    # =========================================================
     
     # 5. Guardar los resultados en el formato estricto
     guardar_resultados_jsonl(lista_resultados, "resultados.jsonl")
