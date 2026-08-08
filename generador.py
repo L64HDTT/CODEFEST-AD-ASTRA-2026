@@ -1,4 +1,16 @@
+import os
+import re
 import json
+import fitz
+import pandas as pd
+
+from bs4 import BeautifulSoup
+
+from PIL import Image
+
+import pytesseract
+
+from langdetect import detect, DetectorFactory
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
