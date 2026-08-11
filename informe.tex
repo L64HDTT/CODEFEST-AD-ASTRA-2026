@@ -1,0 +1,57 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Informe Técnico: Arquitectura Híbrida de Recuperación Aumentada por Generación (RAG) con Grafo de Conocimiento}}
+\author{Team Kepler}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introducción}
+En el marco del presente reto tecnológico, este informe detalla la conceptualización, diseño y despliegue de un pipeline de Recuperación Aumentada por Generación (RAG). El objetivo central fue superar las limitaciones de la búsqueda vectorial tradicional mediante la integración de un Grafo de Conocimiento semántico. Esta arquitectura híbrida permite no solo recuperar información basada en la similitud de contextos multilingües, sino también priorizar documentos mediante relaciones topológicas exactas entre entidades clave detectadas en las consultas de los usuarios.
+
+\section{Objetivos}
+
+\subsection{Objetivo General}
+Desarrollar e implementar un sistema RAG híbrido, modular y escalable que fusione técnicas de recuperación vectorial (FAISS) con la precisión de un Grafo de Conocimiento estructurado, optimizando la extracción de información en un corpus de documentos multilingüe.
+
+\subsection{Objetivos Específicos}
+\begin{itemize}
+    \item Extraer y procesar texto e imágenes de un corpus documental aplicando técnicas de OCR y segmentación (chunking) controlada (máximo 250 palabras por fragmento).
+    \item Generar embeddings multilingües de alta calidad e indexarlos utilizando la librería FAISS para búsquedas por similitud semántica.
+    \item Construir un Grafo de Conocimiento extrayendo entidades nombradas (NER) mediante modelos de procesamiento de lenguaje natural (Hugging Face) e identificando sus relaciones de co-ocurrencia.
+    \item Implementar el algoritmo de fusión de rangos recíprocos (RRF) para combinar los scores vectoriales y topológicos, retornando los resultados en un formato JSONL estricto.
+\end{itemize}
+
+\section{Metodología y Flujo de Trabajo}
+Para garantizar la agilidad y modularidad del proyecto, el equipo adoptó un flujo de trabajo colaborativo centralizado en GitHub. El desarrollo se estructuró en módulos independientes ejecutados secuencialmente a través de un orquestador principal (\texttt{main.py}). Esto permitió el trabajo en paralelo y la validación aislada de cada componente antes de su integración final.
+
+\subsection{Roles y Distribución del Trabajo}
+A continuación, se detallan las responsabilidades asumidas por cada integrante del equipo, reflejando la arquitectura técnica del pipeline:
+
+\subsubsection{Módulo 1: Extracción y Procesamiento de Texto (Nombre del Integrante)}
+\textbf{Archivos responsables:} \texttt{extractor.py}, \texttt{procesador\_texto.py}\\
+Encargado de la lectura del corpus en crudo, la aplicación de OCR (PyTesseract) para la extracción de texto en imágenes, y la normalización del contenido. Su función principal fue garantizar la segmentación del texto en fragmentos (chunks) respetando el límite de 250 palabras y estructurando la metadata inicial.
+
+\subsubsection{Módulo 2: Indexación Vectorial (Nombre del Integrante)}
+\textbf{Archivo responsable:} \texttt{indexador.py}\\
+Responsable de transformar el texto procesado en representaciones vectoriales utilizando modelos de \textit{Sentence Transformers}. Este rol implementó la base de datos FAISS (\texttt{index.faiss}) para almacenar los embeddings y generó el almacén persistente de metadatos (\texttt{metadata.jsonl}).
+
+\subsubsection{Módulo 3: Grafo de Conocimiento y Fusión RRF (Tu Nombre)}
+\textbf{Archivos responsables:} \texttt{constructor\_grafo.py}, \texttt{generador.py}\\
+Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.
+
+\subsubsection{Orquestación y Despliegue (Líder del Equipo)}
+\textbf{Archivo responsable:} \texttt{main.py}\\
+Encargado de unificar los scripts, gestionar las dependencias del entorno virtual, asegurar que los datos fluyan correctamente de un módulo a otro a través de subprocesos, y realizar la entrega oficial del repositorio.
+
+\end{document}
