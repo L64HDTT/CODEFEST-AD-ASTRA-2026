@@ -5,8 +5,14 @@
 \usepackage{geometry}
 \geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
 
-\title{\textbf{Informe Técnico: Arquitectura Híbrida de Recuperación Aumentada por Generación (RAG) con Grafo de Conocimiento}}
-\author{Team Kepler}
+\title{\textbf{Arquitectura Híbrida de Recuperación Aumentada por Generación (RAG) con Grafo de Conocimiento}}
+\author{
+    \textbf{Team Kepler} \\
+    Karen Julieth Castaño Trujillo \\
+    Luis David Sánchez Salazar \\
+    Luis Jeronimo Lopez Guiterrez \\
+    Samuel Camilo Merchan Macedo
+}
 \date{\today}
 
 \begin{document}
@@ -46,9 +52,34 @@ Encargado de la lectura del corpus en crudo, la aplicación de OCR (PyTesseract)
 \textbf{Archivo responsable:} \texttt{indexador.py}\\
 Responsable de transformar el texto procesado en representaciones vectoriales utilizando modelos de \textit{Sentence Transformers}. Este rol implementó la base de datos FAISS (\texttt{index.faiss}) para almacenar los embeddings y generó el almacén persistente de metadatos (\texttt{metadata.jsonl}).
 
-\subsubsection{Módulo 3: Grafo de Conocimiento y Fusión RRF (Tu Nombre)}
+\subsubsection{Módulo 3: Grafo de Conocimiento y Fusión RRF (Luis David Sánchez Salazar)}
 \textbf{Archivos responsables:} \texttt{constructor\_grafo.py}, \texttt{generador.py}\\
-Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.
+Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.\\ 
+
+Para dotar al sistema de precisión semántica y entendimiento de entidades clave, se construyó un Grafo de Conocimiento dirigido utilizando la librería \texttt{networkx} de Python. El proceso de construcción se dividió en las siguientes fases técnicas:
+
+\begin{itemize}
+    \item \textbf{Extracción de Entidades Multilingüe:} Se integró la librería \texttt{transformers} de Hugging Face empleando el modelo \texttt{Babelscape/wikineural-multilingual-ner}. Este modelo procesa cada fragmento de texto (chunk) y detecta entidades nombradas con un umbral de confianza estricto ($> 0.70$), agrupando tokens fragmentados mediante la estrategia \textit{simple aggregation}.
+    \item \textbf{Definición de Topología mediante networkx:} Se instanció un grafo dirigido (\texttt{nx.DiGraph()}). Por cada chunk analizado, las entidades únicas detectadas se insertaron utilizando la función \texttt{grafo.add\_node()}, almacenando su tipo (e.g., ORG, LOC, PER) como atributo.
+    \item \textbf{Generación de Relaciones:} Las aristas se establecieron asumiendo proximidad semántica dentro del límite de 250 palabras del fragmento. Mediante la función \texttt{grafo.add\_edge()}, se vincularon las entidades co-ocurrentes bajo la relación \texttt{CO\_OCURRE\_EN\_CHUNK}, inyectando directamente como metadatos obligatorios el \texttt{doc\_id} y el \texttt{chunk\_id} correspondientes.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Motor de Generación y Recuperación Híbrida (\texttt{generador.py})}: 
+    El script central de consultas orquesta la recuperación de información fusionando bases de datos vectoriales y topológicas. Es importante enfatizar que esta arquitectura se diseñó bajo un paradigma estrictamente \textbf{Encoder-only}. Para el procesamiento de las consultas en lenguaje natural, no se hizo uso de modelos generativos o decodificadores (LLMs). En su lugar, se utilizó el modelo \texttt{sentence-transformers/distiluse-base-multilingual-cased-v1}, el cual actúa puramente como un codificador (encoder) para mapear tanto el corpus como las consultas a un espacio vectorial denso de 512 dimensiones, garantizando una alineación semántica multilingüe de alta eficiencia y bajo costo computacional.
+    El pipeline de recuperación integrado opera mediante las siguientes etapas:
+\end{itemize}
+
+\begin{enumerate}
+    \item \textbf{Recuperación Vectorial (FAISS):} El codificador transforma la consulta entrante en un vector numérico normalizado. A través de la librería \texttt{faiss}, se realiza una búsqueda de los $k=60$ vecinos más cercanos midiendo la distancia $L2$.
+    \item \textbf{Recuperación Topológica (Grafo):} Paralelamente, la consulta es procesada por el pipeline NER. Las entidades identificadas se buscan en el \texttt{grafo.graphml}. Si existe coincidencia, el algoritmo explora los vecinos de primer orden utilizando las funciones \texttt{grafo.successors()} y \texttt{grafo.predecessors()}. Posteriormente, se itera sobre los atributos de las aristas conectadas para recuperar y contabilizar las frecuencias de los \texttt{chunk\_id} implicados.
+    \item \textbf{Fusión de Resultados mediante RRF:} Para unificar los candidatos de FAISS y del Grafo sin depender de distribuciones de distancia heterogéneas, se aplicó la técnica de Reciprocal Rank Fusion (RRF). El puntaje combinado para cada fragmento $c$ se calculó mediante la fórmula:
+    
+    $$s_{RRF}(c)=\sum_{j=1}^{m}\frac{1}{k_{0}+r_{j}(c)}$$
+    
+    Donde $k_{0}$ se definió empíricamente con un valor de 60, y $r_{j}(c)$ representa la posición (rango) del fragmento en cada lista de recuperación (FAISS y Grafo).
+    \item \textbf{Agregación y Max Pooling:} Los fragmentos ordenados por su puntaje RRF son sometidos a un proceso de \textit{Max Pooling} a nivel de documento. El sistema agrupa los \textit{chunks} por \texttt{doc\_id} y hereda la máxima puntuación encontrada. Finalmente, se trunca el texto de los fragmentos al límite normativo de 250 palabras y se exporta el top 3 de documentos en formato JSONL.
+\end{enumerate}
 
 \subsubsection{Orquestación y Despliegue (Líder del Equipo)}
 \textbf{Archivo responsable:} \texttt{main.py}\\
