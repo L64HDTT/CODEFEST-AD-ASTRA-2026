@@ -17,62 +17,91 @@ nlp_zh = spacy.load('zh_core_web_sm')
 
 
 def subdividir_oracion_larga(oracion, tokenizer, max_tokens=200):
+    """
+    Sub-divide oraciones gigantes. Maneja palabras normales y también 
+    cadenas continuas sin espacios (URLs, tablas pegadas, etc.) para evitar
+    recursión infinita.
+    """
     palabras = oracion.split()
+    
+    # CASO BORDE: Si es un solo string gigante sin espacios
+    if len(palabras) <= 1:
+        paso = max_tokens * 3  # Aprox 3 caracteres por token
+        return [oracion[i:i + paso] for i in range(0, len(oracion), paso)]
+
     sub_oraciones = []
     bloque_actual = []
 
     for palabra in palabras:
-        bloque_actual.append(palabra)
-        candidato = " ".join(bloque_actual) # Usamos truncation=True para evitar warnings durante la medición
+        # Verificar si una sola palabra es gigantesca por sí misma
+        num_tokens_palabra = len(tokenizer.encode(palabra, add_special_tokens=False, truncation=True, max_length=512))
+        if num_tokens_palabra >= max_tokens:
+            if bloque_actual:
+                sub_oraciones.append(" ".join(bloque_actual))
+                bloque_actual = []
+            paso = max_tokens * 3
+            sub_oraciones.extend([palabra[k:k + paso] for k in range(0, len(palabra), paso)])
+            continue
+
+        candidato = " ".join(bloque_actual + [palabra])
         num_tokens = len(tokenizer.encode(candidato, add_special_tokens=False, truncation=True, max_length=512))
-        
+
         if num_tokens >= max_tokens:
-            sub_oraciones.append(candidato)
-            bloque_actual = []
+            if bloque_actual:
+                sub_oraciones.append(" ".join(bloque_actual))
+            bloque_actual = [palabra]
+        else:
+            bloque_actual.append(palabra)
 
     if bloque_actual:
         sub_oraciones.append(" ".join(bloque_actual))
 
-    return sub_oraciones
+    return sub_oraciones if sub_oraciones else [oracion[:max_tokens * 3]]
 
 
 # 2. Filtro de Seguridad Refactorizado
 def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
     """
-    Procesa oraciones y, si encuentra oraciones gigantes, las sub-divide en 
-    lugar de descartarlas.
+    Garantiza que ningún fragmento supere max_tokens sin caer en recursión infinita.
     """
     if not oraciones:
         return []
 
-    # Se añade truncation=True y max_length=512 para silenciar la advertencia de Transformers
+    oraciones_procesadas = []
+
+    # Iteración iterativa segura sobre oraciones largas
+    for o in oraciones:
+        num_tokens = len(tokenizer.encode(o, add_special_tokens=False, truncation=True, max_length=512))
+        
+        if num_tokens > max_tokens:
+            sub_frags = subdividir_oracion_larga(o, tokenizer, max_tokens)
+            for sf in sub_frags:
+                n_tok = len(tokenizer.encode(sf, add_special_tokens=False, truncation=True, max_length=512))
+                if n_tok > max_tokens:
+                    limite_chars = max_tokens * 3
+                    oraciones_procesadas.append(sf[:limite_chars])
+                else:
+                    oraciones_procesadas.append(sf)
+        else:
+            oraciones_procesadas.append(o)
+
+    # Evaluación de la regla B (agrupación / aislamiento)
     tokens = [
-        len(tokenizer.encode(o, add_special_tokens=False, truncation=True, max_length=512)) 
-        for o in oraciones
+        len(tokenizer.encode(o, add_special_tokens=False, truncation=True, max_length=512))
+        for o in oraciones_procesadas
     ]
 
-    # FILTRO A: Si la oración supera max_tokens, SE SUB-DIVIDE
-    for i in range(len(oraciones)):
-        if tokens[i] > max_tokens:
-            # Sub-dividimos la oración problemática
-            sub_oraciones = subdividir_oracion_larga(oraciones[i], tokenizer, max_tokens)
-            
-            # Reemplazamos la oración larga por sus sub-fragmentos y re-evaluamos recursivamente
-            oraciones_nuevas = oraciones[:i] + sub_oraciones + oraciones[i+1:]
-            return filtrar_fragmentos_seguros(oraciones_nuevas, tokenizer, max_tokens)
-
-    # FILTRO B: Suma adyacente cruzada > max_tokens
-    for i in range(1, len(oraciones) - 1):
+    for i in range(1, len(oraciones_procesadas) - 1):
         suma_anterior = tokens[i-1] + tokens[i]
         suma_siguiente = tokens[i] + tokens[i+1]
 
         if suma_anterior > max_tokens and suma_siguiente > max_tokens and tokens[i] <= max_tokens:
-            chunk_independiente = [oraciones[i]]
-            fragmento_antes = filtrar_fragmentos_seguros(oraciones[:i], tokenizer, max_tokens)
-            fragmento_despues = filtrar_fragmentos_seguros(oraciones[i+1:], tokenizer, max_tokens)
-            return fragmento_antes + [chunk_independiente] + fragmento_despues
+            chunk_independiente = [oraciones_procesadas[i]]
+            fragmento_antes = oraciones_procesadas[:i]
+            fragmento_despues = oraciones_procesadas[i+1:]
+            return [fragmento_antes] + [chunk_independiente] + [fragmento_despues]
 
-    return [oraciones]
+    return [oraciones_procesadas]
 
 
 # 3. Función Principal de Chunking

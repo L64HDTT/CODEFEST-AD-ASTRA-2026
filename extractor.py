@@ -2,12 +2,13 @@ import os
 import re
 import json
 
-import pymupdf
+import fitz
 import pandas as pd
+from PIL import Image
 import pytesseract
+import concurrent.futures
 
 from bs4 import BeautifulSoup
-from PIL import Image
 from langdetect import detect, DetectorFactory
 
 DetectorFactory.seed = 0
@@ -17,34 +18,81 @@ DetectorFactory.seed = 0
 # EXTRACCIÓN PDF
 # ==========================================================
 
-def extraer_pdf(ruta, limite_caracteres_ocr=50):
+
+def _ejecutar_ocr_imagen(args):
     """
-    Extrae el texto de un PDF manteniendo los indicadores de página.
-    Si una página contiene menos caracteres de los especificados, aplica OCR.
+    Procesa únicamente la imagen en memoria con Tesseract.
+    No abre archivos PDF ni toca PyMuPDF (100% aislado y seguro).
     """
-    texto_paginas = []
+    num_pagina, img, timeout_ocr = args
+    try:
+        # Binarización ultra-rápida a blanco y negro
+        img_gray = img.convert("L")
+        img_bw = img_gray.point(lambda x: 0 if x < 150 else 255, '1')
+
+        texto_ocr = pytesseract.image_to_string(
+            img_bw, 
+            lang="spa+eng", 
+            config="--psm 6 --oem 1",
+            timeout=timeout_ocr
+        )
+        return num_pagina, texto_ocr.strip()
+    except Exception:
+        return num_pagina, ""
+
+
+def extraer_pdf(ruta, limite_caracteres_ocr=50, timeout_ocr=5, max_workers=4):
+    """
+    Extractor hiper-optimizado sin fugas de memoria ni colapsos de hilos.
+    """
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+    texto_paginas = {}
+    paginas_para_ocr = []
 
-    with pymupdf.open(ruta_limpia) as pdf:
-        for num_pagina, pagina in enumerate(pdf):
-            texto_nativo = pagina.get_text("text")
+    try:
+        # PASO 1: Extracción secuencial ultrarrápida (Lectura nativa)
+        with fitz.open(ruta_limpia) as pdf:
+            total_paginas = len(pdf)
             
-            # Verificar si la página necesita OCR (escaneada o imagen)
-            if len(texto_nativo.strip()) < limite_caracteres_ocr: # Renderizar página a imagen de alta resolución
-                pix = pagina.get_pixmap(dpi=150)
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+            for num_pagina in range(total_paginas):
+                pagina = pdf[num_pagina]
+                texto_nativo = pagina.get_text("text")
                 
-                # Ejecutar OCR focalizado
-                texto_ocr = pytesseract.image_to_string(img, lang="spa+eng")
-                texto_final = texto_ocr if texto_ocr.strip() else texto_nativo
-            else:
-                texto_final = texto_nativo
-            
-            # Agregar encabezado de página para mantener trazabilidad
-            encabezado = f"--- Página {num_pagina + 1} ---\n"
-            texto_paginas.append(encabezado + texto_final)
+                # Si la página tiene suficiente texto nativo, la guardamos de una vez
+                if len(texto_nativo.strip()) >= limite_caracteres_ocr:
+                    texto_paginas[num_pagina] = texto_nativo
+                else:
+                    # Si le falta texto, renderizamos la imagen AQUÍ en el hilo principal
+                    pix = pagina.get_pixmap(dpi=100)
+                    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                    paginas_para_ocr.append((num_pagina, img, timeout_ocr))
 
-    return "\n\n".join(texto_paginas)
+        # PASO 2: Si hay páginas escaneadas (ej. carpeta 'alerta'), las mandamos al pool de OCR
+        if paginas_para_ocr:
+            num_hilos = min(max_workers, os.cpu_count() or 4)
+            
+            with concurrent.futures.ThreadPoolExecutor(max_workers=num_hilos) as executor:
+                # Se envían solo las imágenes aisladas (PIL Images), cero conflicto con PyMuPDF
+                resultados_ocr = executor.map(_ejecutar_ocr_imagen, paginas_para_ocr)
+                
+                for num_pagina, texto_ocr in resultados_ocr:
+                    if texto_ocr:
+                        texto_paginas[num_pagina] = texto_ocr
+                    else:
+                        # Fallback por si falló el OCR
+                        texto_paginas[num_pagina] = "[Texto no extraíble]"
+
+        # PASO 3: Reconstruir el documento conservando el orden original
+        resultado_final = []
+        for p in range(len(texto_paginas)):
+            encabezado = f"--- Página {p + 1} ---\n"
+            resultado_final.append(encabezado + texto_paginas.get(p, ""))
+
+        return "\n\n".join(resultado_final)
+
+    except Exception as e:
+        print(f"Error procesando {ruta_limpia}: {e}")
+        return ""
 
 
 # ==========================================================
