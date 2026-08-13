@@ -13,9 +13,10 @@ nlp_fr = spacy.load('fr_core_news_sm')
 nlp_de = spacy.load('de_core_news_sm')
 nlp_it = spacy.load('it_core_news_sm')
 nlp_pt = spacy.load('pt_core_news_sm')
+nlp_zh = spacy.load('zh_core_web_sm')
 
 # 2. Filtro de Seguridad Recursivo
-def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
+def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250 ):
     """
     Aísla o elimina oraciones problemáticas antes de hacer el chunking.
     """
@@ -76,6 +77,8 @@ def chunkers(data):
         nlp = nlp_it
     elif idioma_base == 'pt':
         nlp = nlp_pt
+    elif idioma_base == 'zh':
+        nlp = nlp_zh
     else:
         # En lugar de lanzar ValueError, asigna nlp_en como fallback para evitar detener la ejecución
         nlp = nlp_en
