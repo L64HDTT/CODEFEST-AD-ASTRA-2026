@@ -60,21 +60,25 @@ def chunkers(data):
     parrafos = texto_completo.split('\n')
     q = 0 # Contador global de chunks
 
-    # Selección dinámica del modelo Spacy según el idioma
-    if idioma == 'es':
+    # Extraer código base por si viene con prefijos como 'zh-cn' o 'en-us'
+    idioma_base = idioma.split('-')[0].lower() if idioma else 'en'
+
+    # Selección dinámica del modelo Spacy según el idioma (con fallback a inglés)
+    if idioma_base == 'es':
         nlp = nlp_es
-    elif idioma == 'en':
+    elif idioma_base == 'en':
         nlp = nlp_en
-    elif idioma == 'fr':
+    elif idioma_base == 'fr':
         nlp = nlp_fr
-    elif idioma == 'de':
+    elif idioma_base == 'de':
         nlp = nlp_de
-    elif idioma == 'it':
+    elif idioma_base == 'it':
         nlp = nlp_it
-    elif idioma == 'pt':
+    elif idioma_base == 'pt':
         nlp = nlp_pt
     else:
-        raise ValueError(f'Idioma no soportado por spaCy: {idioma}')
+        # En lugar de lanzar ValueError, asigna nlp_en como fallback para evitar detener la ejecución
+        nlp = nlp_en
 
     for parrafo in parrafos:
         if not parrafo.strip():
