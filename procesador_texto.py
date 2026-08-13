@@ -111,7 +111,7 @@ def chunkers(data):
                         'fuente': meta_fuente,
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
-                        'texto': texto_chunk,
+                        'text': texto_chunk,
                         'posicion': q,
                         'doc_id': doc_id,
                         'chunk_id': chunk_id,
@@ -153,7 +153,7 @@ def chunkers(data):
                         'fuente': meta_fuente,
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
-                        'texto': texto_chunk,
+                        'text': texto_chunk,
                         'posicion': q,
                         'doc_id': doc_id,
                         'chunk_id': chunk_id,
@@ -178,5 +178,3 @@ def chunkers_final(data):
     for documento in data:
         chunks.update(chunkers(documento))
     return chunks
-
-dic_chunks = chunkers_final(documentos)

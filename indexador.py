@@ -23,7 +23,7 @@ metadata = list(dic_chunks.values())
 # 3. Extracción de textos para la vectorización
 
 encoder = SentenceTransformer('sentence-transformers/distiluse-base-multilingual-cased-v1')
-textos = [chunk['texto'] for chunk in metadata]
+textos = [chunk['text'] for chunk in metadata]
 embeddings = encoder.encode(textos, normalize_embeddings=True, convert_to_numpy=True) # Vectorización y normalización L_2
 embeddings = embeddings.astype('float32') # Requerido para FAISS
 
@@ -44,9 +44,9 @@ with open(ruta_metadata, 'w', encoding='utf-8') as f: #'w'writing. codificación
     meta_obj = {
         'doc_id': chunk['doc_id'],
         'chunk_id': chunk['chunk_id'],
-        'texto': chunk['text'],
+        'text': chunk['text'],
         'fuente': chunk.get('fuente', 'desconocido'),
-        'num_tokens': len(chunk['texto'].split()),
+        'num_tokens': chunk.get('num_tokens', len(chunk['text'].split())),
     }
     f.write(json.dumps(meta_obj, ensure_ascii=False) + '\n')
 
