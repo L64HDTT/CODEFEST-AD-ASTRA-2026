@@ -15,25 +15,53 @@ nlp_it = spacy.load('it_core_news_sm')
 nlp_pt = spacy.load('pt_core_news_sm')
 nlp_zh = spacy.load('zh_core_web_sm')
 
-# 2. Filtro de Seguridad Recursivo
-def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250 ):
+
+def subdividir_oracion_larga(oracion, tokenizer, max_tokens=200):
+    palabras = oracion.split()
+    sub_oraciones = []
+    bloque_actual = []
+
+    for palabra in palabras:
+        bloque_actual.append(palabra)
+        candidato = " ".join(bloque_actual) # Usamos truncation=True para evitar warnings durante la medición
+        num_tokens = len(tokenizer.encode(candidato, add_special_tokens=False, truncation=True, max_length=512))
+        
+        if num_tokens >= max_tokens:
+            sub_oraciones.append(candidato)
+            bloque_actual = []
+
+    if bloque_actual:
+        sub_oraciones.append(" ".join(bloque_actual))
+
+    return sub_oraciones
+
+
+# 2. Filtro de Seguridad Refactorizado
+def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
     """
-    Aísla o elimina oraciones problemáticas antes de hacer el chunking.
+    Procesa oraciones y, si encuentra oraciones gigantes, las sub-divide en 
+    lugar de descartarlas.
     """
     if not oraciones:
         return []
 
-    tokens = [len(tokenizer.encode(o, add_special_tokens=False)) for o in oraciones]
+    # Se añade truncation=True y max_length=512 para silenciar la advertencia de Transformers
+    tokens = [
+        len(tokenizer.encode(o, add_special_tokens=False, truncation=True, max_length=512)) 
+        for o in oraciones
+    ]
 
-    # FILTRO A: Oración individual > 250 tokens (Se omite)
+    # FILTRO A: Si la oración supera max_tokens, SE SUB-DIVIDE
     for i in range(len(oraciones)):
         if tokens[i] > max_tokens:
-            print(f"Advertencia: texto incompatible (oración de {tokens[i]} tokens omitida).")
-            fragmento_antes = filtrar_fragmentos_seguros(oraciones[:i], tokenizer, max_tokens)
-            fragmento_despues = filtrar_fragmentos_seguros(oraciones[i+1:], tokenizer, max_tokens)
-            return fragmento_antes + fragmento_despues
+            # Sub-dividimos la oración problemática
+            sub_oraciones = subdividir_oracion_larga(oraciones[i], tokenizer, max_tokens)
+            
+            # Reemplazamos la oración larga por sus sub-fragmentos y re-evaluamos recursivamente
+            oraciones_nuevas = oraciones[:i] + sub_oraciones + oraciones[i+1:]
+            return filtrar_fragmentos_seguros(oraciones_nuevas, tokenizer, max_tokens)
 
-    # FILTRO B: Suma adyacente cruzada > 250 tokens (Se aísla)
+    # FILTRO B: Suma adyacente cruzada > max_tokens
     for i in range(1, len(oraciones) - 1):
         suma_anterior = tokens[i-1] + tokens[i]
         suma_siguiente = tokens[i] + tokens[i+1]
@@ -45,6 +73,7 @@ def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250 ):
             return fragmento_antes + [chunk_independiente] + fragmento_despues
 
     return [oraciones]
+
 
 # 3. Función Principal de Chunking
 def chunkers(data):
@@ -59,12 +88,12 @@ def chunkers(data):
     idioma = data['idioma']
     
     parrafos = texto_completo.split('\n')
-    q = 0 # Contador global de chunks
+    q = 0  # Contador global de chunks
 
-    # Extraer código base por si viene con prefijos como 'zh-cn' o 'en-us'
+    # Extraer código base
     idioma_base = idioma.split('-')[0].lower() if idioma else 'en'
 
-    # Selección dinámica del modelo Spacy según el idioma (con fallback a inglés)
+    # Selección dinámica del modelo Spacy
     if idioma_base == 'es':
         nlp = nlp_es
     elif idioma_base == 'en':
@@ -80,7 +109,6 @@ def chunkers(data):
     elif idioma_base == 'zh':
         nlp = nlp_zh
     else:
-        # En lugar de lanzar ValueError, asigna nlp_en como fallback para evitar detener la ejecución
         nlp = nlp_en
 
     for parrafo in parrafos:
@@ -93,7 +121,7 @@ def chunkers(data):
         if not oraciones_iniciales:
             continue
 
-        # Pasamos el párrafo por el filtro de seguridad
+        # Pasamos el párrafo por el filtro seguro
         bloques_seguros = filtrar_fragmentos_seguros(oraciones_iniciales, tokenizer)
 
         for bloque in bloques_seguros:
@@ -107,9 +135,8 @@ def chunkers(data):
             # LÓGICA NORMAL (<= 6 oraciones)
             if total_oraciones <= 6:
                 texto_chunk = ' '.join(bloque)
-                num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False))
+                num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False, truncation=True, max_length=512))
                 
-                # Si a pesar de ser <= 6 oraciones supera los 250 tokens, lo enviamos al backoff
                 if num_tokens > 250:
                     usar_ventana_deslizante = True
                 else:
@@ -123,13 +150,13 @@ def chunkers(data):
                         'doc_id': doc_id,
                         'chunk_id': chunk_id,
                         'num_tokens': num_tokens,
-                        'idioma': idioma # Añadido correctamente
+                        'idioma': idioma
                     }
                     q += 1
             else:
                 usar_ventana_deslizante = True
 
-            # LÓGICA AVANZADA (Ventana deslizante con Backoff y Solapamiento)
+            # LÓGICA AVANZADA (Ventana deslizante)
             if usar_ventana_deslizante:
                 OVERLAP = 1
                 MAX_TOKENS = 250
@@ -142,7 +169,7 @@ def chunkers(data):
                         fin = inicio + max_oraciones
                         candidato = bloque[inicio:fin]
                         texto_chunk = ' '.join(candidato)
-                        num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False))
+                        num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False, truncation=True, max_length=512))
                         
                         if num_tokens <= MAX_TOKENS:
                             break
@@ -153,7 +180,7 @@ def chunkers(data):
                         fin = inicio + 1
                         candidato = bloque[inicio:fin]
                         texto_chunk = ' '.join(candidato)
-                        num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False))
+                        num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False, truncation=True, max_length=512))
                     
                     chunk_id = f'{doc_id}_chunk_{q:03d}'
                     salida[chunk_id] = {
@@ -165,7 +192,7 @@ def chunkers(data):
                         'doc_id': doc_id,
                         'chunk_id': chunk_id,
                         'num_tokens': num_tokens,
-                        'idioma': idioma # Añadido correctamente
+                        'idioma': idioma
                     }
                     q += 1
                     
@@ -178,6 +205,7 @@ def chunkers(data):
                     inicio += avance
 
     return salida
+
 
 # 4. Función Integradora Final
 def chunkers_final(data):
