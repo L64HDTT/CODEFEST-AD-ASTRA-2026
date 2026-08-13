@@ -48,10 +48,18 @@ def cargar_grafo(ruta_archivo="grafo/grafo.graphml"):
 # ---------------------------------------------------------
 
 def cargar_base_vectorial():
-    # Ajusta la ruta a la de tu modelo real
-    ruta_faiss = "base_vectorial/encoder_distiluse-base-multilingual-cased-v1/index.faiss"
-    ruta_meta = "base_vectorial/encoder_distiluse-base-multilingual-cased-v1/metadata.jsonl"
-    
+    ruta_faiss = os.path.join(
+      'entrega',
+      'base_vectorial',
+      'encoder_distiluse-base-multilingual-cased-v1',
+      'index.faiss'
+  )
+    ruta_meta = os.path.join(
+      'entrega',
+      'base_vectorial',
+      'encoder_distiluse-base-multilingual-cased-v1',
+      'metadata.jsonl'
+  )
     print("Cargando índice FAISS...")       
     index = faiss.read_index(ruta_faiss)
     
@@ -251,7 +259,7 @@ for resultado in lista_resultados:
     for frag in resultado['fragments'][:10]: 
         print(f"Rank {frag['rank']} | {frag['doc_id']} | {frag['chunk_id']}")
         print(f"      Texto: {frag['text'][:90]}...") # Truncamos el texto a 90 caracteres
-        
+            
 print("\n" + "="*50 + "\n")
 # =========================================================
 
