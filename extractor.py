@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-import PyMuPDF as fitz
+import pymupdf
 import pandas as pd
 import pytesseract
 
@@ -25,15 +25,14 @@ def extraer_pdf(ruta, limite_caracteres_ocr=50):
     texto_paginas = []
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
 
-    with fitz.open(ruta_limpia) as pdf:
+    with pymupdf.open(ruta_limpia) as pdf:
         for num_pagina, pagina in enumerate(pdf):
             texto_nativo = pagina.get_text("text")
             
             # Verificar si la página necesita OCR (escaneada o imagen)
-            if len(texto_nativo.strip()) < limite_caracteres_ocr:
-                # Renderizar página a imagen de alta resolución (300 DPI aprox.)
+            if len(texto_nativo.strip()) < limite_caracteres_ocr: # Renderizar página a imagen de alta resolución
                 pix = pagina.get_pixmap(dpi=150)
-                img = Image.open(io.BytesIO(pix.tobytes("png")))
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
                 
                 # Ejecutar OCR focalizado
                 texto_ocr = pytesseract.image_to_string(img, lang="spa+eng")

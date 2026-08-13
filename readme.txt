@@ -1,0 +1,1 @@
+Descargar tesseract y añadirlo al PATH. PATH recomendado C:\Program Files\Tesseract-OCR\
