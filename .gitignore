@@ -6,3 +6,8 @@
 *.out
 *.synctex.gz
 *.toc
+
+datos/
+*.zip
+.venv/
+__pycache__/

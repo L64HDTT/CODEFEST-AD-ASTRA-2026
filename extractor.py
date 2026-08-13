@@ -113,24 +113,41 @@ def extraer_json(ruta):
 
 def extraer_csv(ruta):
     """
-    Convierte un CSV a texto preservando el nombre
-    de las columnas.
+    Convierte un CSV a texto de forma ultra-resistente.
     """
-
-    df = pd.read_csv(ruta)
-
     texto = ""
+    try:
+        # Intento 1: Pandas detectando el separador automáticamente
+        df = pd.read_csv(
+            ruta, 
+            sep=None,          # Detecta automáticamente si son comas o punto y coma
+            engine='python',   # Fuerza el uso de Python
+            on_bad_lines='skip',
+            encoding_errors='ignore'
+        )
 
-    for _, fila in df.iterrows():
+        for _, fila in df.iterrows():
+            for columna in df.columns:
+                texto += f"{columna}: {str(fila[columna])}\n"
+            texto += "\n"
 
-        for columna in df.columns:
-
-            texto += f"{columna}: {fila[columna]}\n"
-
-        texto += "\n"
+    except Exception:
+        # Intento 2: Si Pandas falla, usamos el lector nativo (A prueba de balas)
+        import csv
+        with open(ruta, "r", encoding="utf-8", errors="ignore") as f:
+            lector = csv.reader(f)
+            try:
+                encabezados = next(lector) # Leer la primera fila (nombres de columnas)
+            except StopIteration:
+                return "" # El archivo estaba vacío
+            
+            for fila in lector:
+                for i in range(len(fila)):
+                    if i < len(encabezados):
+                        texto += f"{encabezados[i]}: {fila[i]}\n"
+                texto += "\n"
 
     return texto
-
 
 # ==========================================================
 # EXTRACCIÓN XLSX
@@ -525,63 +542,40 @@ def procesar_documento(ruta_archivo, doc_id, fenomeno):
 
 def procesar_carpeta(carpeta, fenomeno):
     """
-    Procesa todos los archivos soportados de una carpeta.
-
-    Genera automáticamente:
-
-        DOC-001
-        DOC-002
-        DOC-003
-        ...
-
-    Devuelve una lista de documentos.
+    Procesa todos los archivos soportados de una carpeta y sus subcarpetas.
     """
-
     documentos = []
-
     formatos = (
-
-        ".pdf",
-        ".html",
-        ".htm",
-        ".json",
-        ".csv",
-        ".xlsx",
-        ".png",
-        ".jpg",
-        ".jpeg",
-        ".bmp",
-        ".tif",
-        ".tiff",
-        ".pbf"
-
+        ".pdf", ".html", ".htm", ".json", ".csv", ".xlsx", 
+        ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".pbf"
     )
-
-    archivos = sorted(os.listdir(carpeta))
 
     contador = 1
 
-    for archivo in archivos:
+    # os.walk permite buscar dentro de todas las subcarpetas automáticamente
+    for raiz, directorios, archivos in os.walk(carpeta):
+    
+        for archivo in sorted(archivos):
+            
+            if archivo.lower().endswith(formatos):
+                
+                # Construimos la ruta completa del archivo
+                ruta = os.path.join(raiz, archivo)
+                ruta = os.path.abspath(ruta)
+    
+                if os.name == 'nt':          # Si usas Windows, rompe el límite de 260 caracteres
+                    ruta = f"\\\\?\\{ruta}"
+                doc_id = f"DOC-{contador:03d}"
+                
+                documento = procesar_documento(
+                    ruta_archivo=ruta,
+                    doc_id=doc_id,
+                    fenomeno=fenomeno
+                )
 
-        if archivo.lower().endswith(formatos):
-
-            ruta = os.path.join(carpeta, archivo)
-
-            doc_id = f"DOC-{contador:03d}"
-
-            documento = procesar_documento(
-
-                ruta_archivo=ruta,
-                doc_id=doc_id,
-                fenomeno=fenomeno
-
-            )
-
-            if documento is not None:
-
-                documentos.append(documento)
-
-                contador += 1
+                if documento is not None:
+                    documentos.append(documento)
+                    contador += 1
 
     return documentos
 
@@ -592,8 +586,9 @@ def procesar_carpeta(carpeta, fenomeno):
 
 if __name__ == "__main__":
 
-    carpeta = "datos"
-
+    # 1. Rutas de entrada y salida
+    carpeta = "datos/corpus"
+    archivo_salida = "datos/texto_extraido.json"
     fenomeno = 1
 
     if not os.path.exists(carpeta):
@@ -602,7 +597,10 @@ if __name__ == "__main__":
         print("Créala dentro del proyecto y coloca allí los archivos.")
 
     else:
-
+        
+        print("Iniciando extracción. Esto puede tardar varios minutos dependiendo de los PDFs...")
+        
+        # 2. Ejecutar la extracción
         documentos = procesar_carpeta(carpeta, fenomeno)
 
         print("\n")
@@ -610,24 +608,11 @@ if __name__ == "__main__":
         print(f"Se procesaron {len(documentos)} documento(s).")
         print("=" * 70)
 
-        for doc in documentos:
-
-            print("\n")
-
-            print("=" * 70)
-
-            print(f"Documento : {doc['doc_id']}")
-            print(f"Fuente    : {doc['fuente']}")
-            print(f"Formato   : {doc['formato']}")
-            print(f"Fenómeno  : {doc['fenomeno']}")
-            print(f"Idioma    : {doc['idioma']}")
-
-            print("\nPrimeros 500 caracteres:\n")
-
-            print(doc["texto"][:500])
-
-            print("\nLongitud del texto:")
-
-            print(len(doc["texto"]))
-
-            print("=" * 70)
+        # 3. Guardar todo en un archivo JSON
+        print(f"\nGuardando resultados en: {archivo_salida}...")
+        
+        # Guardamos el archivo asegurando que los acentos y las eñes se vean bien (UTF-8)
+        with open(archivo_salida, "w", encoding="utf-8") as archivo_json:
+            json.dump(documentos, archivo_json, ensure_ascii=False, indent=4)
+            
+        print("¡Misión del Extractor completada con éxito! Archivo listo para el Chunker.")
