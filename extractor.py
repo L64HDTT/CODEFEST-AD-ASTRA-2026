@@ -2,12 +2,13 @@ import os
 import re
 import json
 
-import fitz  # PyMuPDF
+import fitz
 import pandas as pd
+from PIL import Image
 import pytesseract
+import concurrent.futures
 
 from bs4 import BeautifulSoup
-from PIL import Image
 from langdetect import detect, DetectorFactory
 
 DetectorFactory.seed = 0
@@ -17,22 +18,81 @@ DetectorFactory.seed = 0
 # EXTRACCIÓN PDF
 # ==========================================================
 
-def extraer_pdf(ruta):
+
+def _ejecutar_ocr_imagen(args):
     """
-    Extrae el texto de un archivo PDF utilizando PyMuPDF.
+    Procesa únicamente la imagen en memoria con Tesseract.
+    No abre archivos PDF ni toca PyMuPDF (100% aislado y seguro).
     """
+    num_pagina, img, timeout_ocr = args
+    try:
+        # Binarización ultra-rápida a blanco y negro
+        img_gray = img.convert("L")
+        img_bw = img_gray.point(lambda x: 0 if x < 150 else 255, '1')
 
-    texto = ""
+        texto_ocr = pytesseract.image_to_string(
+            img_bw, 
+            lang="spa+eng", 
+            config="--psm 6 --oem 1",
+            timeout=timeout_ocr
+        )
+        return num_pagina, texto_ocr.strip()
+    except Exception:
+        return num_pagina, ""
 
-    with fitz.open(ruta) as pdf:
 
-        for pagina in pdf:
+def extraer_pdf(ruta, limite_caracteres_ocr=50, timeout_ocr=5, max_workers=4):
+    """
+    Extractor hiper-optimizado sin fugas de memoria ni colapsos de hilos.
+    """
+    ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+    texto_paginas = {}
+    paginas_para_ocr = []
 
-            texto += pagina.get_text("text")
+    try:
+        # PASO 1: Extracción secuencial ultrarrápida (Lectura nativa)
+        with fitz.open(ruta_limpia) as pdf:
+            total_paginas = len(pdf)
+            
+            for num_pagina in range(total_paginas):
+                pagina = pdf[num_pagina]
+                texto_nativo = pagina.get_text("text")
+                
+                # Si la página tiene suficiente texto nativo, la guardamos de una vez
+                if len(texto_nativo.strip()) >= limite_caracteres_ocr:
+                    texto_paginas[num_pagina] = texto_nativo
+                else:
+                    # Si le falta texto, renderizamos la imagen AQUÍ en el hilo principal
+                    pix = pagina.get_pixmap(dpi=100)
+                    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                    paginas_para_ocr.append((num_pagina, img, timeout_ocr))
 
-            texto += "\n\n"
+        # PASO 2: Si hay páginas escaneadas (ej. carpeta 'alerta'), las mandamos al pool de OCR
+        if paginas_para_ocr:
+            num_hilos = min(max_workers, os.cpu_count() or 4)
+            
+            with concurrent.futures.ThreadPoolExecutor(max_workers=num_hilos) as executor:
+                # Se envían solo las imágenes aisladas (PIL Images), cero conflicto con PyMuPDF
+                resultados_ocr = executor.map(_ejecutar_ocr_imagen, paginas_para_ocr)
+                
+                for num_pagina, texto_ocr in resultados_ocr:
+                    if texto_ocr:
+                        texto_paginas[num_pagina] = texto_ocr
+                    else:
+                        # Fallback por si falló el OCR
+                        texto_paginas[num_pagina] = "[Texto no extraíble]"
 
-    return texto
+        # PASO 3: Reconstruir el documento conservando el orden original
+        resultado_final = []
+        for p in range(len(texto_paginas)):
+            encabezado = f"--- Página {p + 1} ---\n"
+            resultado_final.append(encabezado + texto_paginas.get(p, ""))
+
+        return "\n\n".join(resultado_final)
+
+    except Exception as e:
+        print(f"Error procesando {ruta_limpia}: {e}")
+        return ""
 
 
 # ==========================================================
@@ -43,21 +103,17 @@ def extraer_html(ruta):
     """
     Extrae únicamente el texto visible de un HTML.
     """
+    ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
 
-    with open(ruta, "r", encoding="utf-8") as archivo:
-
+    with open(ruta_limpia, "r", encoding="utf-8", errors="ignore") as archivo:
         html = archivo.read()
 
     soup = BeautifulSoup(html, "html.parser")
 
-    # eliminar scripts y estilos
-
     for elemento in soup(["script", "style"]):
         elemento.extract()
 
-    texto = soup.get_text(separator="\n")
-
-    return texto
+    return soup.get_text(separator="\n")
 
 
 # ==========================================================
@@ -66,30 +122,23 @@ def extraer_html(ruta):
 
 def recorrer_json(obj):
     """
-    Recorre cualquier estructura JSON y obtiene únicamente
-    el contenido textual.
+    Recorre cualquier estructura JSON extrayendo texto y conservando URLs 
+    de fuentes/metadatos sin alterar el flujo.
     """
-
     texto = ""
 
     if isinstance(obj, dict):
-
-        for valor in obj.values():
-
+        for clave, valor in obj.items():
             texto += recorrer_json(valor)
 
     elif isinstance(obj, list):
-
         for elemento in obj:
-
             texto += recorrer_json(elemento)
 
     elif isinstance(obj, str):
-
         texto += obj + "\n"
 
     elif isinstance(obj, (int, float, bool)):
-
         texto += str(obj) + "\n"
 
     return texto
@@ -99,55 +148,56 @@ def extraer_json(ruta):
     """
     Extrae el contenido textual de un JSON.
     """
+    ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
 
-    with open(ruta, "r", encoding="utf-8") as archivo:
-
+    with open(ruta_limpia, "r", encoding="utf-8", errors="ignore") as archivo:
         datos = json.load(archivo)
 
     return recorrer_json(datos)
 
 
 # ==========================================================
-# EXTRACCIÓN CSV
+# EXTRACCIÓN CSV (OPTIMIZADO PARA EVITAR CONGELAMIENTOS)
 # ==========================================================
 
 def extraer_csv(ruta):
     """
-    Convierte un CSV a texto de forma ultra-resistente.
+    Convierte un CSV a texto en formato registro por registro, evitando 
+    la generación de volúmenes masivos de texto plano inútil.
     """
-    texto = ""
-    try:
-        # Intento 1: Pandas detectando el separador automáticamente
-        df = pd.read_csv(
-            ruta, 
-            sep=None,          # Detecta automáticamente si son comas o punto y coma
-            engine='python',   # Fuerza el uso de Python
-            on_bad_lines='skip',
-            encoding_errors='ignore'
-        )
-
-        for _, fila in df.iterrows():
-            for columna in df.columns:
-                texto += f"{columna}: {str(fila[columna])}\n"
-            texto += "\n"
-
-    except Exception:
-        # Intento 2: Si Pandas falla, usamos el lector nativo (A prueba de balas)
-        import csv
-        with open(ruta, "r", encoding="utf-8", errors="ignore") as f:
-            lector = csv.reader(f)
-            try:
-                encabezados = next(lector) # Leer la primera fila (nombres de columnas)
-            except StopIteration:
-                return "" # El archivo estaba vacío
+    ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+    
+    for sep in [',', ';', '\t']:
+        try:
+            df = pd.read_csv(
+                ruta_limpia, 
+                sep=sep, 
+                engine='c', 
+                on_bad_lines='skip', 
+                encoding_errors='ignore',
+                low_memory=False
+            )
             
-            for fila in lector:
-                for i in range(len(fila)):
-                    if i < len(encabezados):
-                        texto += f"{encabezados[i]}: {fila[i]}\n"
-                texto += "\n"
+            lineas = []
+            cols = df.columns.tolist()
+            # Se procesan las filas en formato 'Columna: Valor' delimitado
+            for row in df.head(1000).itertuples(index=False):
+                registro = [f"{col}: {val}" for col, val in zip(cols, row) if pd.notna(val)]
+                if registro:
+                    lineas.append(" | ".join(registro))
+                
+            return "\n".join(lineas)
+        except Exception:
+            continue
 
-    return texto
+    # Fallback de lectura simple
+    try:
+        with open(ruta_limpia, "r", encoding="utf-8", errors="ignore") as f:
+            lineas = [f.readline() for _ in range(1000)]
+            return "".join(lineas)
+    except Exception:
+        return ""
+
 
 # ==========================================================
 # EXTRACCIÓN XLSX
@@ -157,40 +207,37 @@ def extraer_xlsx(ruta):
     """
     Convierte un archivo Excel a texto.
     """
-
-    df = pd.read_excel(ruta)
-
-    texto = ""
-
-    for _, fila in df.iterrows():
-
-        for columna in df.columns:
-
-            texto += f"{columna}: {fila[columna]}\n"
-
-        texto += "\n"
-
-    return texto
+    ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+    try:
+        df = pd.read_excel(ruta_limpia)
+        lineas = []
+        cols = df.columns.tolist()
+        for row in df.head(1000).itertuples(index=False):
+            registro = [f"{col}: {val}" for col, val in zip(cols, row) if pd.notna(val)]
+            if registro:
+                lineas.append(" | ".join(registro))
+        return "\n".join(lineas)
+    except Exception:
+        return ""
 
 
 # ==========================================================
-# EXTRACCIÓN IMÁGENES (OCR)
+# EXTRACCIÓN IMÁGENES (OCR / LINEAMIENTO SIN INVENTAR TEXTO)
 # ==========================================================
 
 def extraer_imagen(ruta):
     """
-    Extrae texto mediante OCR.
-    Requiere tener instalado Tesseract OCR.
+    Aplica OCR a las imágenes. Si la imagen no posee texto útil,
+    devuelve una cadena vacía conservando únicamente sus metadatos.
     """
-
-    imagen = Image.open(ruta)
-
-    texto = pytesseract.image_to_string(
-        imagen,
-        lang="spa+eng"
-    )
-
-    return texto
+    try:
+        ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+        imagen = Image.open(ruta_limpia)
+        texto = pytesseract.image_to_string(imagen, lang="spa+eng")
+        return texto.strip()
+    except Exception:
+        # En caso de error o ausencia de motor OCR, retorna texto vacío
+        return ""
 
 
 # ==========================================================
@@ -198,84 +245,26 @@ def extraer_imagen(ruta):
 # ==========================================================
 
 def extraer_pbf(ruta):
-    """
-    Función preparada para archivos PBF.
+    return "Extracción PBF no implementada aún. El archivo fue detectado correctamente."
 
-    Puede ampliarse posteriormente utilizando pyosmium.
-    """
 
-    return (
-        "Extracción PBF no implementada aún. "
-        "El archivo fue detectado correctamente."
-    )
 # ==========================================================
 # LIMPIEZA DEL TEXTO
 # ==========================================================
 
 def limpiar_texto(texto):
     """
-    Limpia el texto extraído de cualquier formato.
-
-    - Elimina caracteres de control.
-    - Elimina caracteres Unicode invisibles.
-    - Elimina números de página aislados.
-    - Conserva los párrafos.
-    - Reduce espacios redundantes.
+    Limpia el texto extraído conservando la estructura de párrafos.
     """
-
     if not texto:
         return ""
 
-    # Eliminar caracteres de control
-    texto = re.sub(
-        r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]',
-        '',
-        texto
-    )
-
-    # Eliminar caracteres Unicode invisibles
-    texto = re.sub(
-        r'[\uFFF0-\uFFFF]',
-        '',
-        texto
-    )
-
-    # Eliminar líneas que solo contienen números
-    texto = re.sub(
-        r'(?m)^\s*\d+\s*$',
-        '',
-        texto
-    )
-
-    # Eliminar espacios al final de línea
-    texto = re.sub(
-        r'[ \t]+$',
-        '',
-        texto,
-        flags=re.MULTILINE
-    )
-
-    # Reemplazar múltiples espacios por uno
-    texto = re.sub(
-        r' +',
-        ' ',
-        texto
-    )
-
-    # Reducir muchos saltos de línea
-    texto = re.sub(
-        r'\n{3,}',
-        '\n\n',
-        texto
-    )
-
-    # Normalizar UTF-8
-    texto = texto.encode(
-        "utf-8",
-        "ignore"
-    ).decode(
-        "utf-8"
-    )
+    texto = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]', '', texto)
+    texto = re.sub(r'[\uFFF0-\uFFFF]', '', texto)
+    texto = re.sub(r'(?m)^\s*\d+\s*$', '', texto)
+    texto = re.sub(r'[ \t]+$', '', texto, flags=re.MULTILINE)
+    texto = re.sub(r' +', ' ', texto)
+    texto = re.sub(r'\n{3,}', '\n\n', texto)
 
     return texto.strip()
 
@@ -286,21 +275,15 @@ def limpiar_texto(texto):
 
 def identificar_idioma(texto):
     """
-    Detecta el idioma predominante del documento.
+    Detecta el idioma del texto. Devuelve 'es' si está vacío o no se identifica.
     """
-
-    if len(texto.strip()) == 0:
-        return "desconocido"
+    if not texto or len(texto.strip()) == 0:
+        return "es"
 
     try:
-
-        idioma = detect(texto[:5000])
-
-        return idioma
-
+        return detect(texto[:5000])
     except Exception:
-
-        return "desconocido"
+        return "es"
 
 
 # ==========================================================
@@ -308,186 +291,26 @@ def identificar_idioma(texto):
 # ==========================================================
 
 def extraer_texto(ruta):
-    """
-    Detecta la extensión del archivo y utiliza
-    el extractor correspondiente.
-    """
-
     extension = os.path.splitext(ruta)[1].lower()
 
     if extension == ".pdf":
         return extraer_pdf(ruta)
-
     elif extension in [".html", ".htm"]:
         return extraer_html(ruta)
-
     elif extension == ".json":
         return extraer_json(ruta)
-
     elif extension == ".csv":
         return extraer_csv(ruta)
-
     elif extension == ".xlsx":
         return extraer_xlsx(ruta)
-
-    elif extension in [
-        ".png",
-        ".jpg",
-        ".jpeg",
-        ".bmp",
-        ".tif",
-        ".tiff"
-    ]:
+    elif extension in [".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"]:
         return extraer_imagen(ruta)
-
     elif extension == ".pbf":
         return extraer_pbf(ruta)
-
     else:
-
-        raise ValueError(
-            f"Formato no soportado: {extension}"
-        )
-# ==========================================================
-# LIMPIEZA DEL TEXTO
-# ==========================================================
-
-def limpiar_texto(texto):
-    """
-    Limpia el texto extraído de cualquier formato.
-
-    - Elimina caracteres de control.
-    - Elimina caracteres Unicode invisibles.
-    - Elimina números de página aislados.
-    - Conserva los párrafos.
-    - Reduce espacios redundantes.
-    """
-
-    if not texto:
-        return ""
-
-    # Eliminar caracteres de control
-    texto = re.sub(
-        r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]',
-        '',
-        texto
-    )
-
-    # Eliminar caracteres Unicode invisibles
-    texto = re.sub(
-        r'[\uFFF0-\uFFFF]',
-        '',
-        texto
-    )
-
-    # Eliminar líneas que solo contienen números
-    texto = re.sub(
-        r'(?m)^\s*\d+\s*$',
-        '',
-        texto
-    )
-
-    # Eliminar espacios al final de línea
-    texto = re.sub(
-        r'[ \t]+$',
-        '',
-        texto,
-        flags=re.MULTILINE
-    )
-
-    # Reemplazar múltiples espacios por uno
-    texto = re.sub(
-        r' +',
-        ' ',
-        texto
-    )
-
-    # Reducir muchos saltos de línea
-    texto = re.sub(
-        r'\n{3,}',
-        '\n\n',
-        texto
-    )
-
-    # Normalizar UTF-8
-    texto = texto.encode(
-        "utf-8",
-        "ignore"
-    ).decode(
-        "utf-8"
-    )
-
-    return texto.strip()
+        raise ValueError(f"Formato no soportado: {extension}")
 
 
-# ==========================================================
-# DETECCIÓN DE IDIOMA
-# ==========================================================
-
-def identificar_idioma(texto):
-    """
-    Detecta el idioma predominante del documento.
-    """
-
-    if len(texto.strip()) == 0:
-        return "desconocido"
-
-    try:
-
-        idioma = detect(texto[:5000])
-
-        return idioma
-
-    except Exception:
-
-        return "desconocido"
-
-
-# ==========================================================
-# SELECCIÓN AUTOMÁTICA DEL EXTRACTOR
-# ==========================================================
-
-def extraer_texto(ruta):
-    """
-    Detecta la extensión del archivo y utiliza
-    el extractor correspondiente.
-    """
-
-    extension = os.path.splitext(ruta)[1].lower()
-
-    if extension == ".pdf":
-        return extraer_pdf(ruta)
-
-    elif extension in [".html", ".htm"]:
-        return extraer_html(ruta)
-
-    elif extension == ".json":
-        return extraer_json(ruta)
-
-    elif extension == ".csv":
-        return extraer_csv(ruta)
-
-    elif extension == ".xlsx":
-        return extraer_xlsx(ruta)
-
-    elif extension in [
-        ".png",
-        ".jpg",
-        ".jpeg",
-        ".bmp",
-        ".tif",
-        ".tiff"
-    ]:
-        return extraer_imagen(ruta)
-
-    elif extension == ".pbf":
-        return extraer_pbf(ruta)
-
-    else:
-
-        raise ValueError(
-            f"Formato no soportado: {extension}"
-        )
 # ==========================================================
 # PROCESAR UN DOCUMENTO
 # ==========================================================
@@ -495,54 +318,40 @@ def extraer_texto(ruta):
 def procesar_documento(ruta_archivo, doc_id, fenomeno):
     """
     Procesa un documento de cualquier formato soportado.
-
-    Retorna un diccionario listo para el módulo de chunking.
+    Si una imagen no contiene texto, se conserva con texto vació manteniendo su metadata.
     """
-
     try:
+        nombre_base = os.path.basename(ruta_archivo)
+        print(f"Procesando: {nombre_base}")
 
-        print(f"Procesando: {os.path.basename(ruta_archivo)}")
-
-        # Extraer texto según el tipo de archivo
         texto = extraer_texto(ruta_archivo)
-
-        # Limpiar texto
         texto = limpiar_texto(texto)
-
-        # Detectar idioma
         idioma = identificar_idioma(texto)
-
-        # Obtener formato
         formato = os.path.splitext(ruta_archivo)[1][1:].lower()
 
         documento = {
-
             "doc_id": doc_id,
-            "fuente": os.path.basename(ruta_archivo),
+            "fuente": nombre_base,
             "formato": formato,
             "fenomeno": fenomeno,
             "idioma": idioma,
             "texto": texto
-
         }
 
         return documento
 
     except Exception as e:
-
-        print(f"\nError procesando {ruta_archivo}")
-        print(e)
-
+        print(f"\nError procesando {ruta_archivo}: {e}")
         return None
 
 
 # ==========================================================
-# PROCESAR TODOS LOS DOCUMENTOS DE UNA CARPETA
+# PROCESAR TODOS LOS DOCUMENTOS DE UNA CARPETA O ARCHIVO
 # ==========================================================
 
-def procesar_carpeta(carpeta, fenomeno):
+def procesar_carpeta(carpeta, fenomeno=1):
     """
-    Procesa todos los archivos soportados de una carpeta y sus subcarpetas.
+    Procesa todos los archivos soportados ignorando entornos virtuales o temporales.
     """
     documentos = []
     formatos = (
@@ -550,21 +359,42 @@ def procesar_carpeta(carpeta, fenomeno):
         ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".pbf"
     )
 
+    CARPETAS_IGNORADAS = {
+        '.venv', 'venv', 'env', '.git', '__pycache__', 
+        'node_modules', '.idea', '.vscode', 'entrega', 'build'
+    }
+
+    ARCHIVOS_IGNORADOS = {
+        'consultas.json', 'texto_extraido.json', 'metadata.jsonl', 'resultados.jsonl'
+    }
+
     contador = 1
 
-    # os.walk permite buscar dentro de todas las subcarpetas automáticamente
+    if os.path.isfile(carpeta):
+        if carpeta.lower().endswith(formatos):
+            ruta_abs = os.path.abspath(carpeta)
+            doc_id = f"DOC-{contador:03d}"
+            doc = procesar_documento(ruta_abs, doc_id, fenomeno)
+            if doc is not None:
+                documentos.append(doc)
+        return documentos
+
     for raiz, directorios, archivos in os.walk(carpeta):
-    
+        directorios[:] = [d for d in directorios if d.lower() not in CARPETAS_IGNORADAS and not d.startswith('.')]
+
         for archivo in sorted(archivos):
-            
-            if archivo.lower().endswith(formatos):
-                
-                # Construimos la ruta completa del archivo
+            nombre_lower = archivo.lower()
+
+            if nombre_lower in ARCHIVOS_IGNORADOS:
+                continue
+
+            if nombre_lower.endswith(formatos):
                 ruta = os.path.join(raiz, archivo)
                 ruta = os.path.abspath(ruta)
-    
-                if os.name == 'nt':          # Si usas Windows, rompe el límite de 260 caracteres
+
+                if os.name == 'nt':
                     ruta = f"\\\\?\\{ruta}"
+
                 doc_id = f"DOC-{contador:03d}"
                 
                 documento = procesar_documento(
@@ -586,33 +416,22 @@ def procesar_carpeta(carpeta, fenomeno):
 
 if __name__ == "__main__":
 
-    # 1. Rutas de entrada y salida
-    carpeta = "datos/corpus"
+    carpeta = "datos"
     archivo_salida = "datos/texto_extraido.json"
     fenomeno = 1
 
     if not os.path.exists(carpeta):
-
-        print(f"La carpeta '{carpeta}' no existe.")
-        print("Créala dentro del proyecto y coloca allí los archivos.")
-
+        print(f"La ruta '{carpeta}' no existe.")
     else:
-        
-        print("Iniciando extracción. Esto puede tardar varios minutos dependiendo de los PDFs...")
-        
-        # 2. Ejecutar la extracción
+        print("Iniciando extracción...")
         documentos = procesar_carpeta(carpeta, fenomeno)
 
-        print("\n")
-        print("=" * 70)
+        print("\n" + "=" * 70)
         print(f"Se procesaron {len(documentos)} documento(s).")
         print("=" * 70)
 
-        # 3. Guardar todo en un archivo JSON
-        print(f"\nGuardando resultados en: {archivo_salida}...")
-        
-        # Guardamos el archivo asegurando que los acentos y las eñes se vean bien (UTF-8)
+        os.makedirs(os.path.dirname(archivo_salida), exist_ok=True)
         with open(archivo_salida, "w", encoding="utf-8") as archivo_json:
             json.dump(documentos, archivo_json, ensure_ascii=False, indent=4)
             
-        print("¡Misión del Extractor completada con éxito! Archivo listo para el Chunker.")
+        print("¡Extracción completada exitosamente!")

@@ -6,8 +6,25 @@
 *.out
 *.synctex.gz
 *.toc
-
+requirements2.txt
 datos/
 *.zip
+
+# --- ENTORNOS VIRTUALES Y CACHÉ ---
 .venv/
+venv/
+env/
 __pycache__/
+*.pyc
+
+# --- ARCHIVOS GENERADOS / RESULTADOS DEL PIPELINE ---
+entrega/
+datos/texto_extraido.json
+metadata.jsonl
+resultados.jsonl
+*.faiss
+
+# --- IDEs Y CONFIGURACIONES DE EDITOR ---
+.vscode/
+.idea/
+.ds_store
