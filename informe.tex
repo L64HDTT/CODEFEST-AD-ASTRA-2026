@@ -44,17 +44,21 @@ Para garantizar la agilidad y modularidad del proyecto, el equipo adoptó un flu
 \subsection{Roles y Distribución del Trabajo}
 A continuación, se detallan las responsabilidades asumidas por cada integrante del equipo, reflejando la arquitectura técnica del pipeline:
 
-\subsubsection{Módulo 1: Extracción y Procesamiento de Texto (Nombre del Integrante)}
-\textbf{Archivos responsables:} \texttt{extractor.py}, \texttt{procesador\_texto.py}\\
-Encargado de la lectura del corpus en crudo, la aplicación de OCR (PyTesseract) para la extracción de texto en imágenes, y la normalización del contenido. Su función principal fue garantizar la segmentación del texto en fragmentos (chunks) respetando el límite de 250 palabras y estructurando la metadata inicial.
+\subsubsection{Módulo 1: Extracción y Ingesta de Documentos Multimodal (Samuel Camilo Merchán Macedo)}
+\textbf{Archivo responsable:} \texttt{extractor.py}\\
+Encargado del procesamiento inicial de la ingesta documental en el corpus multimodal. Implementó la lectura automatizada de archivos de texto y la integración de Reconocimiento Óptico de Caracteres (OCR) mediante \texttt{pytesseract} para digitalizar imágenes e infografías. Su desarrollo aseguró la extracción limpia de caracteres y estructuró la carga inicial de datos crudos para los pipelines posteriores.
 
-\subsubsection{Módulo 2: Indexación Vectorial (Nombre del Integrante)}
+\subsubsection{Módulo 2: Preprocesamiento de Texto y Chunking (Samuel Camilo Merchán Macedo)}
+\textbf{Archivo responsable:} \texttt{procesador\_texto.py}\\
+Responsable de la limpieza, normalización de texto y segmentación estratégica de la información. Diseñó el algoritmo de \textit{chunking} condicional que garantiza un límite estricto de máximo 250 palabras por fragmento. Asimismo, enriqueció cada bloque mediante la asignación metódica de identificadores de control (\texttt{doc\_id} y \texttt{chunk\_id}) e inyección de metadatos estructurales requeridos por el sistema RAG.
+
+\subsubsection{Módulo 3: Indexación Vectorial (Nombre del Integrante)}
 \textbf{Archivo responsable:} \texttt{indexador.py}\\
 Responsable de transformar el texto procesado en representaciones vectoriales utilizando modelos de \textit{Sentence Transformers}. Este rol implementó la base de datos FAISS (\texttt{index.faiss}) para almacenar los embeddings y generó el almacén persistente de metadatos (\texttt{metadata.jsonl}).
 
-\subsubsection{Módulo 3: Grafo de Conocimiento y Fusión RRF (Luis David Sánchez Salazar)}
+\subsubsection{Módulo 4: Grafo de Conocimiento y Fusión RRF (Luis David Sánchez Salazar)}
 \textbf{Archivos responsables:} \texttt{constructor\_grafo.py}, \texttt{generador.py}\\
-Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.\\ 
+Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.\\
 
 Para dotar al sistema de precisión semántica y entendimiento de entidades clave, se construyó un Grafo de Conocimiento dirigido utilizando la librería \texttt{networkx} de Python. El proceso de construcción se dividió en las siguientes fases técnicas:
 
@@ -66,7 +70,7 @@ Para dotar al sistema de precisión semántica y entendimiento de entidades clav
 
 \begin{itemize}
     \item \textbf{Motor de Generación y Recuperación Híbrida (\texttt{generador.py})}: 
-    El script central de consultas orquesta la recuperación de información fusionando bases de datos vectoriales y topológicas. Es importante enfatizar que esta arquitectura se diseñó bajo un paradigma estrictamente \textbf{Encoder-only}. Para el procesamiento de las consultas en lenguaje natural, no se hizo uso de modelos generativos o decodificadores (LLMs). En su lugar, se utilizó el modelo \texttt{sentence-transformers/distiluse-base-multilingual-cased-v1}, el cual actúa puramente como un codificador (encoder) para mapear tanto el corpus como las consultas a un espacio vectorial denso de 512 dimensiones, garantizando una alineación semántica multilingüe de alta eficiencia y bajo costo computacional.
+    El script central de consultas orquesta la recuperación de información fusionando bases de datos vectoriales y topológicas. Es importante enfatizar que esta arquitectura se diseñó bajo un paradigma strictly \textbf{Encoder-only}. Para el procesamiento de las consultas en lenguaje natural, no se hizo uso de modelos generativos o decodificadores (LLMs). En su lugar, se utilizó el modelo \texttt{sentence-transformers/distiluse-base-multilingual-cased-v1}, el cual actúa puramente como un codificador (encoder) para mapear tanto el corpus como las consultas a un espacio vectorial denso de 512 dimensiones, garantizando una alineación semántica multilingüe de alta eficiencia y bajo costo computacional.
     El pipeline de recuperación integrado opera mediante las siguientes etapas:
 \end{itemize}
 
