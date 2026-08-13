@@ -104,35 +104,33 @@ def extraer_json(ruta):
 
 def extraer_csv(ruta):
     """
-    Convierte un CSV a texto de forma ultra-rápida y resistente.
+    Convierte un CSV a texto de forma ultra-rápida usando el motor C de Pandas.
     """
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
+    
+    # Probar primero los dos separadores más comunes con el motor rápido de C
+    for sep in [',', ';', '\t']:
+        try:
+            df = pd.read_csv(
+                ruta_limpia, 
+                sep=sep, 
+                engine='c', 
+                on_bad_lines='skip', 
+                encoding_errors='ignore',
+                low_memory=False
+            )
+            # Limitar la representación de texto para evitar CSVs infinitos de millones de filas
+            return df.head(2000).to_string(index=False)
+        except Exception:
+            continue
+
+    # Fallback liviano sin bucles pesados
     try:
-        # Uso vectorizado con pandas para evitar iteraciones lentas por fila/columna
-        df = pd.read_csv(
-            ruta_limpia, 
-            sep=None, 
-            engine='python', 
-            on_bad_lines='skip', 
-            encoding_errors='ignore'
-        )
-        return df.to_string(index=False)
-
-    except Exception:
-        import csv
-        texto = ""
         with open(ruta_limpia, "r", encoding="utf-8", errors="ignore") as f:
-            lector = csv.reader(f)
-            try:
-                encabezados = next(lector)
-            except StopIteration:
-                return ""
-            
-            for fila in lector:
-                linea = [f"{encabezados[i]}: {fila[i]}" for i in range(min(len(fila), len(encabezados)))]
-                texto += " | ".join(linea) + "\n"
-
-        return texto
+            lineas = [f.readline() for _ in range(1000)]
+            return "".join(lineas)
+    except Exception:
+        return ""
 
 
 # ==========================================================

@@ -58,7 +58,7 @@ def main():
     
     # 3. Definir la ruta relativa estricta al metadata.jsonl generado por el indexador
     # Ajusta el nombre de la carpeta según como la haya nombrado tu equipo
-    ruta_metadata = "base_vectorial/encoder_distiluse-base-multilingual-cased-v1/metadata.jsonl"
+    ruta_metadata = "entrega/base_vectorial/encoder_distiluse-base-multilingual-cased-v1/metadata.jsonl"
     
     if not os.path.exists(ruta_metadata):
         print(f"Error: No se encontró el archivo {ruta_metadata}. Ejecuta el indexador primero.")
