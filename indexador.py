@@ -29,7 +29,7 @@ embeddings = embeddings.astype('float32') # Requerido para FAISS
 
 # 4. Índice FAISS usando la similitud coseno (IndexFlatIP - pag 12)
 
-dimension = embeddings.shape[1] # Extrae la dimension preestablecidad del encoder (512)
+dimension = embeddings.shape[-1] # Extrae la dimensión de forma segura
 index = faiss.IndexFlatIP(dimension)
 index.add(embeddings)
 ruta_faiss = os.path.join(salida, 'index.faiss')

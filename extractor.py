@@ -1,6 +1,7 @@
 import os
 import re
 import json
+from pathlib import Path
 
 import fitz
 import pandas as pd
@@ -17,7 +18,6 @@ DetectorFactory.seed = 0
 # ==========================================================
 # EXTRACCIÓN PDF
 # ==========================================================
-
 
 def _ejecutar_ocr_imagen(args):
     """
@@ -315,14 +315,14 @@ def extraer_texto(ruta):
 # PROCESAR UN DOCUMENTO
 # ==========================================================
 
-def procesar_documento(ruta_archivo, doc_id, fenomeno):
+def procesar_documento(ruta_archivo, doc_id, fenomeno, ruta_origen=""):
     """
-    Procesa un documento de cualquier formato soportado.
-    Si una imagen no contiene texto, se conserva con texto vació manteniendo su metadata.
+    Procesa un documento de cualquier formato soportado, inyectando la ruta
+    relativa original (ruta_origen) para no perder el rastro de la subcarpeta.
     """
     try:
         nombre_base = os.path.basename(ruta_archivo)
-        print(f"Procesando: {nombre_base}")
+        print(f"Procesando: {ruta_origen or nombre_base}")
 
         texto = extraer_texto(ruta_archivo)
         texto = limpiar_texto(texto)
@@ -332,6 +332,7 @@ def procesar_documento(ruta_archivo, doc_id, fenomeno):
         documento = {
             "doc_id": doc_id,
             "fuente": nombre_base,
+            "ruta_origen": ruta_origen or nombre_base, # Guarda "F3/SIPRI/doc.pdf"
             "formato": formato,
             "fenomeno": fenomeno,
             "idioma": idioma,
@@ -341,23 +342,24 @@ def procesar_documento(ruta_archivo, doc_id, fenomeno):
         return documento
 
     except Exception as e:
-        print(f"\nError procesando {ruta_archivo}: {e}")
+        print(f"\n[ERROR] procesando {ruta_archivo}: {e}")
         return None
 
 
 # ==========================================================
-# PROCESAR TODOS LOS DOCUMENTOS DE UNA CARPETA O ARCHIVO
+# PROCESAR TODOS LOS DOCUMENTOS DE UNA CARPETA (RECURSIVO)
 # ==========================================================
 
 def procesar_carpeta(carpeta, fenomeno=1):
     """
-    Procesa todos los archivos soportados ignorando entornos virtuales o temporales.
+    Procesa todos los archivos soportados navegando de manera recursiva por 
+    todas las subcarpetas usando pathlib, sin colapsar por rutas complejas.
     """
     documentos = []
-    formatos = (
+    formatos = {
         ".pdf", ".html", ".htm", ".json", ".csv", ".xlsx", 
         ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".pbf"
-    )
+    }
 
     CARPETAS_IGNORADAS = {
         '.venv', 'venv', 'env', '.git', '__pycache__', 
@@ -368,44 +370,50 @@ def procesar_carpeta(carpeta, fenomeno=1):
         'consultas.json', 'texto_extraido.json', 'metadata.jsonl', 'resultados.jsonl'
     }
 
+    ruta_base = Path(carpeta).resolve()
     contador = 1
 
-    if os.path.isfile(carpeta):
-        if carpeta.lower().endswith(formatos):
-            ruta_abs = os.path.abspath(carpeta)
-            doc_id = f"DOC-{contador:03d}"
-            doc = procesar_documento(ruta_abs, doc_id, fenomeno)
-            if doc is not None:
-                documentos.append(doc)
+    # Si se pasa un solo archivo en vez de una carpeta
+    if ruta_base.is_file() and ruta_base.suffix.lower() in formatos:
+        doc_id = f"DOC-{contador:03d}"
+        doc = procesar_documento(str(ruta_base), doc_id, fenomeno, ruta_origen=ruta_base.name)
+        if doc is not None:
+            documentos.append(doc)
         return documentos
 
-    for raiz, directorios, archivos in os.walk(carpeta):
-        directorios[:] = [d for d in directorios if d.lower() not in CARPETAS_IGNORADAS and not d.startswith('.')]
+    # Exploración recursiva profunda y segura
+    for ruta_archivo in ruta_base.rglob("*"):
+        if not ruta_archivo.is_file():
+            continue
 
-        for archivo in sorted(archivos):
-            nombre_lower = archivo.lower()
+        # Evitar carpetas ocultas y entornos virtuales
+        if any(part in CARPETAS_IGNORADAS or part.startswith('.') for part in ruta_archivo.parts):
+            continue
 
-            if nombre_lower in ARCHIVOS_IGNORADOS:
-                continue
+        nombre_lower = ruta_archivo.name.lower()
+        if nombre_lower in ARCHIVOS_IGNORADOS or ruta_archivo.suffix.lower() not in formatos:
+            continue
 
-            if nombre_lower.endswith(formatos):
-                ruta = os.path.join(raiz, archivo)
-                ruta = os.path.abspath(ruta)
+        ruta_str = str(ruta_archivo)
+        
+        # Extraer ruta relativa (ej: F3/SIPRI/archivo.pdf) para el rastro
+        try:
+            ruta_relativa = str(ruta_archivo.relative_to(ruta_base)).replace("\\", "/")
+        except ValueError:
+            ruta_relativa = ruta_archivo.name
 
-                if os.name == 'nt':
-                    ruta = f"\\\\?\\{ruta}"
+        doc_id = f"DOC-{contador:03d}"
+        
+        documento = procesar_documento(
+            ruta_archivo=ruta_str,
+            doc_id=doc_id,
+            fenomeno=fenomeno,
+            ruta_origen=ruta_relativa
+        )
 
-                doc_id = f"DOC-{contador:03d}"
-                
-                documento = procesar_documento(
-                    ruta_archivo=ruta,
-                    doc_id=doc_id,
-                    fenomeno=fenomeno
-                )
-
-                if documento is not None:
-                    documentos.append(documento)
-                    contador += 1
+        if documento is not None:
+            documentos.append(documento)
+            contador += 1
 
     return documentos
 
@@ -423,7 +431,7 @@ if __name__ == "__main__":
     if not os.path.exists(carpeta):
         print(f"La ruta '{carpeta}' no existe.")
     else:
-        print("Iniciando extracción...")
+        print("Iniciando extracción profunda (incluyendo subcarpetas)...")
         documentos = procesar_carpeta(carpeta, fenomeno)
 
         print("\n" + "=" * 70)

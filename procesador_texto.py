@@ -2,7 +2,10 @@ import math
 import spacy
 from transformers import AutoTokenizer
 
-# 1. Cargar modelos globales
+# ==========================================================
+# 1. CARGA DE MODELOS GLOBALES
+# ==========================================================
+
 tokenizer = AutoTokenizer.from_pretrained(
     'sentence-transformers/distiluse-base-multilingual-cased-v1'
 )
@@ -13,8 +16,12 @@ nlp_fr = spacy.load('fr_core_news_sm')
 nlp_de = spacy.load('de_core_news_sm')
 nlp_it = spacy.load('it_core_news_sm')
 nlp_pt = spacy.load('pt_core_news_sm')
-nlp_zh = spacy.load('zh_core_web_sm')
+# nlp_zh = spacy.load('zh_core_web_sm') # Comentado temporalmente para evitar el error de spacy-pkuseg en Windows
 
+
+# ==========================================================
+# 2. FUNCIONES DE SUBDIVISIÓN Y FILTRADO
+# ==========================================================
 
 def subdividir_oracion_larga(oracion, tokenizer, max_tokens=200):
     """
@@ -59,7 +66,6 @@ def subdividir_oracion_larga(oracion, tokenizer, max_tokens=200):
     return sub_oraciones if sub_oraciones else [oracion[:max_tokens * 3]]
 
 
-# 2. Filtro de Seguridad Refactorizado
 def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
     """
     Garantiza que ningún fragmento supere max_tokens sin caer en recursión infinita.
@@ -104,22 +110,26 @@ def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
     return [oraciones_procesadas]
 
 
-# 3. Función Principal de Chunking
+# ==========================================================
+# 3. LÓGICA DE CHUNKING
+# ==========================================================
+
 def chunkers(data):
     salida = {}
-    doc_id = data['doc_id']
-    texto_completo = data['texto']
+    doc_id = data.get('doc_id', 'doc_desconocido')
+    texto_completo = data.get('texto', '')
 
-    # Metadatos base
-    meta_fuente = data['fuente']
-    meta_formato = data['formato']
-    meta_fenomeno = data['fenomeno']
-    idioma = data['idioma']
+    # Metadatos base (Ahora incluye ruta_origen)
+    meta_fuente = data.get('fuente', '')
+    meta_ruta_origen = data.get('ruta_origen', meta_fuente) # Si no viene ruta_origen, usa la fuente
+    meta_formato = data.get('formato', '')
+    meta_fenomeno = data.get('fenomeno', '')
+    idioma = data.get('idioma', 'es')
     
     parrafos = texto_completo.split('\n')
     q = 0  # Contador global de chunks
 
-    # Extraer código base
+    # Extraer código base del idioma
     idioma_base = idioma.split('-')[0].lower() if idioma else 'en'
 
     # Selección dinámica del modelo Spacy
@@ -135,9 +145,8 @@ def chunkers(data):
         nlp = nlp_it
     elif idioma_base == 'pt':
         nlp = nlp_pt
-    elif idioma_base == 'zh':
-        nlp = nlp_zh
     else:
+        # Fallback para idiomas no soportados (incluyendo 'zh' si fue detectado)
         nlp = nlp_en
 
     for parrafo in parrafos:
@@ -172,6 +181,7 @@ def chunkers(data):
                     chunk_id = f'{doc_id}_chunk_{q:03d}'
                     salida[chunk_id] = {
                         'fuente': meta_fuente,
+                        'ruta_origen': meta_ruta_origen,  # <-- Agregado a la salida
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
                         'text': texto_chunk,
@@ -214,6 +224,7 @@ def chunkers(data):
                     chunk_id = f'{doc_id}_chunk_{q:03d}'
                     salida[chunk_id] = {
                         'fuente': meta_fuente,
+                        'ruta_origen': meta_ruta_origen, # <-- Agregado a la salida
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
                         'text': texto_chunk,
@@ -236,7 +247,10 @@ def chunkers(data):
     return salida
 
 
-# 4. Función Integradora Final
+# ==========================================================
+# 4. FUNCIÓN INTEGRADORA FINAL
+# ==========================================================
+
 def chunkers_final(data):
     chunks = {}
     for documento in data:
