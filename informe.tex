@@ -44,11 +44,50 @@ Para garantizar la agilidad y modularidad del proyecto, el equipo adoptó un flu
 \subsection{Roles y Distribución del Trabajo}
 A continuación, se detallan las responsabilidades asumidas por cada integrante del equipo, reflejando la arquitectura técnica del pipeline:
 
-\subsubsection{Módulo 1: Extracción y Ingesta de Documentos Multimodal (Samuel Camilo Merchán Macedo)}
+\subsubsection{Módulo 1: Extracción e Ingesta de Documentos Multimodal}
 \textbf{Archivo responsable:} \texttt{extractor.py}\\
 Encargado del procesamiento inicial de la ingesta documental en el corpus multimodal. Implementó la lectura automatizada de archivos de texto y la integración de Reconocimiento Óptico de Caracteres (OCR) mediante \texttt{pytesseract} para digitalizar imágenes e infografías. Su desarrollo aseguró la extracción limpia de caracteres y estructuró la carga inicial de datos crudos para los pipelines posteriores.
 
-\subsubsection{Módulo 2: Preprocesamiento de Texto y Chunking (Samuel Camilo Merchán Macedo)}
+\subsubsection{Almacén y Gestión de Metadatos}
+
+Para extraer y gestionar eficientemente los metadatos de los documentos y sus posteriores fragmentos (\textit{chunks}), la estrategia se basó en el uso de estructuras de datos clave-valor (diccionarios), permitiendo el acceso rápido a la información a través de sus claves:
+
+\begin{itemize}
+    \item \textbf{Fase de Extracción (\texttt{extractor}):} 
+    \begin{itemize}
+        \item La función \texttt{procesar\_documento} extrae el texto en bruto junto con sus metadatos base (\texttt{fuente}, \texttt{formato}, \texttt{fenómeno}, \texttt{idioma}).
+        \item La función \texttt{procesar\_carpeta} consolida estos resultados en una lista estructurada con un diccionario por cada documento analizado.
+    \end{itemize}
+
+    \item \textbf{Fase de Chunking (\texttt{procesador\_texto}):} 
+    \begin{itemize}
+        \item A partir de la lista producida por el extractor, la función \texttt{chunkers\_final} genera un \textbf{diccionario global de diccionarios}. En esta estructura, cada fragmento queda completamente accesible a través de su identificador único (\texttt{chunk\_id}), encapsulando tanto su texto limpiado como sus metadatos asociados.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Estrategia de Chunking}
+
+La estrategia de fragmentación atravesó una evolución lógica basada en la búsqueda de equilibrio entre densidad semántica y límites técnicos:
+
+\paragraph{1. Hipótesis Inicial y Justificación Semántica}
+Inicialmente, basándonos en estimaciones de densidad informacional en textos científicos y técnicos, consideramos que una longitud de \textbf{5 a 6 oraciones} representaba el tamaño óptimo para un \textit{chunk}. Esta aproximación buscaba empaquetar una idea completa continuo-semántica manteniendo, en promedio, un conteo inferior al umbral de \textbf{250 tokens}.
+
+\paragraph{2. Desafíos Identificados}
+Aunque la hipótesis de 6 oraciones mantenía la cohesión de las ideas, identificamos dos limitaciones críticas en su aplicación rígida:
+\begin{itemize}
+    \item \textbf{Falta de solapamiento (\textit{overlap}):} Pérdida del hilo conductor contextual entre los límites de un fragmento y el siguiente.
+    \item \textbf{Anomalías de longitud:} Existencia de oraciones atípicas con una cantidad de tokens tan elevada que desbordaban el límite permitido.
+\end{itemize}
+
+\paragraph{3. Arquitectura de Solución Implementada}
+Para solucionar estos problemas sin renunciar a nuestra hipótesis principal, implementamos un sistema de filtrado recursivo y partición dinámica:
+\begin{itemize}
+    \item \textbf{Filtro de Seguridad 1 (Omisión de oraciones anómalas):} Se evalúa individualmente la cantidad de tokens por oración. Si una oración supera por sí sola los 250 tokens, se emite una advertencia, se omite y se divide el párrafo en bloques seguros antes y después de la anomalía.
+    \item \textbf{Filtro de Seguridad 2 (Aislamiento por suma adyacente):} Analiza la suma de tokens de cada oración con sus vecinas (anterior y posterior). Si ambas sumas superan los 250 tokens pero la oración individual no lo hace, esta se aísla como un fragmento independiente, dividiendo el texto circundante en bloques seguros.
+    \item \textbf{Ventana Deslizante con Reducción Dinámica (\textit{Backoff}) y Solapamiento:} Sobre los bloques seguros resultantes, el sistema intenta construir \textit{chunks} respetando el techo ideal de 6 oraciones. Si un fragmento supera el límite de 250 tokens, \textbf{reduce progresivamente la cantidad máxima de oraciones} ($6 \rightarrow 5 \rightarrow 4 \dots$) hasta hacer cumplir la restricción. Finalmente, cada avance de ventana preserva un solapamiento de \textbf{1 oración} con el fragmento anterior, garantizando la preservación del hilo conductor.
+\end{itemize}
+
+\subsubsection{Módulo 2: Preprocesamiento de Texto y Chunking}
 \textbf{Archivo responsable:} \texttt{procesador\_texto.py}\\
 Responsable de la limpieza, normalización de texto y segmentación estratégica de la información. Diseñó el algoritmo de \textit{chunking} condicional que garantiza un límite estricto de máximo 250 palabras por fragmento. Asimismo, enriqueció cada bloque mediante la asignación metódica de identificadores de control (\texttt{doc\_id} y \texttt{chunk\_id}) e inyección de metadatos estructurales requeridos por el sistema RAG.
 Para extraer y gestionar eficientemente los metadatos de los documentos y sus posteriores fragmentos (\textit{chunks}), la estrategia se basó en el uso de estructuras de datos clave-valor (diccionarios), permitiendo el acceso rápido a la información a través de sus claves:
@@ -87,7 +126,7 @@ Para solucionar estos problemas sin renunciar a nuestra hipótesis principal, im
     \item \textbf{Filtro de Seguridad 2 (Aislamiento por suma adyacente):} Analiza la suma de tokens de cada oración con sus vecinas (anterior y posterior). Si ambas sumas superan los 250 tokens pero la oración individual no lo hace, esta se aísla como un fragmento independiente, dividiendo el texto circundante en bloques seguros.
     \item \textbf{Ventana Deslizante con Reducción Dinámica (\textit{Backoff}) y Solapamiento:} Sobre los bloques seguros resultantes, el sistema intenta construir \textit{chunks} respetando el techo ideal de 6 oraciones. Si un fragmento supera el límite de 250 tokens, \textbf{reduce progresivamente la cantidad máxima de oraciones} ($6 \rightarrow 5 \rightarrow 4 \dots$) hasta hacer cumplir la restricción. Finalmente, cada avance de ventana preserva un solapamiento de \textbf{1 oración} con el fragmento anterior, garantizando la preservación del hilo conductor.
 \end{itemize}
-\subsubsection{Módulo 3: Indexación Vectorial y Persistencia (Samuel Camilo Merchan Macedo)}
+\subsubsection{Módulo 3: Indexación Vectorial y Persistencia}
 \textbf{Archivo responsable:} \texttt{indexador.py}\\
 Encargado del diseño e implementación del motor de representación vectorial denso. Utilizó el modelo \texttt{sentence-transformers/distiluse-base-multilingual-cased-v1} para codificar los fragmentos (\textit{chunks}) generados en vectores densos de 512 dimensiones, garantizando una alineación semántica multilingüe eficiente. Construyó e indexó los vectores en una base de datos vectorial FAISS mediante un índice de producto interno (\texttt{faiss.IndexFlatIP}) con vectores normalizados $L2$, permitiendo búsquedas rápidas por similitud de coseno. Asimismo, garantizó la persistencia del sistema exportando la base vectorial en el archivo \texttt{index.faiss} y sincronizando los metadatos completos y el contenido textual de cada \textit{chunk} en la base de metadatos \texttt{metadata.jsonl}.
 

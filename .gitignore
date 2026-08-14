@@ -6,7 +6,6 @@
 *.out
 *.synctex.gz
 *.toc
-requirements2.txt
 datos/
 *.zip
 

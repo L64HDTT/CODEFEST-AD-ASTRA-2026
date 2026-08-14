@@ -16,7 +16,7 @@ nlp_fr = spacy.load('fr_core_news_sm')
 nlp_de = spacy.load('de_core_news_sm')
 nlp_it = spacy.load('it_core_news_sm')
 nlp_pt = spacy.load('pt_core_news_sm')
-# nlp_zh = spacy.load('zh_core_web_sm') # Comentado temporalmente para evitar el error de spacy-pkuseg en Windows
+nlp_zh = spacy.load('zh_core_web_sm')
 
 
 # ==========================================================
@@ -116,23 +116,20 @@ def filtrar_fragmentos_seguros(oraciones, tokenizer, max_tokens=250):
 
 def chunkers(data):
     salida = {}
-    doc_id = data.get('doc_id', 'doc_desconocido')
-    texto_completo = data.get('texto', '')
+    doc_id = data['doc_id']
+    texto_completo = data['texto']
 
-    # Metadatos base (Ahora incluye ruta_origen)
-    meta_fuente = data.get('fuente', '')
-    meta_ruta_origen = data.get('ruta_origen', meta_fuente) # Si no viene ruta_origen, usa la fuente
-    meta_formato = data.get('formato', '')
-    meta_fenomeno = data.get('fenomeno', '')
-    idioma = data.get('idioma', 'es')
+    meta_fuente = data['fuente']
+    meta_formato = data['formato']
+    meta_fenomeno = data['fenomeno']
+    idioma = data['idioma']
     
     parrafos = texto_completo.split('\n')
+    total_parrafos = len(parrafos)
     q = 0  # Contador global de chunks
 
-    # Extraer código base del idioma
     idioma_base = idioma.split('-')[0].lower() if idioma else 'en'
 
-    # Selección dinámica del modelo Spacy
     if idioma_base == 'es':
         nlp = nlp_es
     elif idioma_base == 'en':
@@ -145,32 +142,44 @@ def chunkers(data):
         nlp = nlp_it
     elif idioma_base == 'pt':
         nlp = nlp_pt
+    elif idioma_base == 'zh':
+        nlp = nlp_zh
     else:
-        # Fallback para idiomas no soportados (incluyendo 'zh' si fue detectado)
         nlp = nlp_en
 
-    for parrafo in parrafos:
-        if not parrafo.strip():
+    print(f"\n[INICIO DOC] {doc_id} | Total párrafos a procesar: {total_parrafos}", flush=True)
+
+    for i, parrafo in enumerate(parrafos):
+        parrafo_clean = parrafo.strip()
+        if not parrafo_clean:
             continue
 
-        doc = nlp(parrafo)
+        len_chars = len(parrafo_clean)
+        
+        # --- PUNTO DE CONTROL 1: Entrada a SpaCy ---
+        print(f"  --> [Párrafo {i+1}/{total_parrafos}] Longitud: {len_chars} caracteres. Evaluando con SpaCy...", end="", flush=True)
+
+        # SI SE CONGELA AQUÍ: El problema es el parser sintáctico de SpaCy con un párrafo gigante o mal formateado
+        doc = nlp(parrafo_clean[:15000])  # Truncado de seguridad para evitar cuelgues sintácticos
         oraciones_iniciales = [sent.text.strip() for sent in doc.sents if sent.text.strip()]
         
+        print(f" Completado ({len(oraciones_iniciales)} oraciones).", flush=True)
+
         if not oraciones_iniciales:
             continue
 
-        # Pasamos el párrafo por el filtro seguro
+        # --- PUNTO DE CONTROL 2: Filtro de seguridad ---
+        print(f"      [Filtro] Ejecutando 'filtrar_fragmentos_seguros'...", end="", flush=True)
         bloques_seguros = filtrar_fragmentos_seguros(oraciones_iniciales, tokenizer)
+        print(f" OK (Bloques generados: {len(bloques_seguros)}).", flush=True)
 
-        for bloque in bloques_seguros:
+        for idx_b, bloque in enumerate(bloques_seguros):
             total_oraciones = len(bloque)
-            
             if total_oraciones == 0:
                 continue
 
             usar_ventana_deslizante = False
 
-            # LÓGICA NORMAL (<= 6 oraciones)
             if total_oraciones <= 6:
                 texto_chunk = ' '.join(bloque)
                 num_tokens = len(tokenizer.encode(texto_chunk, add_special_tokens=False, truncation=True, max_length=512))
@@ -181,7 +190,6 @@ def chunkers(data):
                     chunk_id = f'{doc_id}_chunk_{q:03d}'
                     salida[chunk_id] = {
                         'fuente': meta_fuente,
-                        'ruta_origen': meta_ruta_origen,  # <-- Agregado a la salida
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
                         'text': texto_chunk,
@@ -195,13 +203,22 @@ def chunkers(data):
             else:
                 usar_ventana_deslizante = True
 
-            # LÓGICA AVANZADA (Ventana deslizante)
+            # --- PUNTO DE CONTROL 3: Ventana Deslizante ---
             if usar_ventana_deslizante:
+                print(f"      [Ventana Deslizante] Procesando bloque {idx_b+1}/{len(bloques_seguros)} ({total_oraciones} oraciones)...", end="", flush=True)
                 OVERLAP = 1
                 MAX_TOKENS = 250
                 inicio = 0
                 
+                iteraciones_seguridad = 0
+                max_iteraciones_permitidas = total_oraciones * 10
+
                 while inicio < total_oraciones:
+                    iteraciones_seguridad += 1
+                    if iteraciones_seguridad > max_iteraciones_permitidas:
+                        print(f"\n[ERROR CRÍTICO] Bucle infinito detectado en Ventana Deslizante para doc {doc_id}, párrafo {i+1}!", flush=True)
+                        break
+
                     max_oraciones = 6
                     
                     while max_oraciones > 1:
@@ -224,7 +241,6 @@ def chunkers(data):
                     chunk_id = f'{doc_id}_chunk_{q:03d}'
                     salida[chunk_id] = {
                         'fuente': meta_fuente,
-                        'ruta_origen': meta_ruta_origen, # <-- Agregado a la salida
                         'formato': meta_formato,
                         'fenomeno': meta_fenomeno,
                         'text': texto_chunk,
@@ -244,8 +260,10 @@ def chunkers(data):
                         
                     inicio += avance
 
-    return salida
+                print(" OK.", flush=True)
 
+    print(f"[FIN DOC] {doc_id} | Chunks creados: {q}\n", flush=True)
+    return salida
 
 # ==========================================================
 # 4. FUNCIÓN INTEGRADORA FINAL
