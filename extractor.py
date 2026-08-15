@@ -42,15 +42,11 @@ def _ejecutar_ocr_imagen(args):
 
 
 def extraer_pdf(ruta, limite_caracteres_ocr=50, timeout_ocr=5, max_workers=4):
-    """
-    Extractor hiper-optimizado sin fugas de memoria ni colapsos de hilos.
-    """
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
     texto_paginas = {}
     paginas_para_ocr = []
 
     try:
-        # PASO 1: Extracción secuencial ultrarrápida (Lectura nativa)
         with fitz.open(ruta_limpia) as pdf:
             total_paginas = len(pdf)
             
@@ -58,35 +54,29 @@ def extraer_pdf(ruta, limite_caracteres_ocr=50, timeout_ocr=5, max_workers=4):
                 pagina = pdf[num_pagina]
                 texto_nativo = pagina.get_text("text")
                 
-                # Si la página tiene suficiente texto nativo, la guardamos de una vez
                 if len(texto_nativo.strip()) >= limite_caracteres_ocr:
                     texto_paginas[num_pagina] = texto_nativo
                 else:
-                    # Si le falta texto, renderizamos la imagen AQUÍ en el hilo principal
                     pix = pagina.get_pixmap(dpi=100)
                     img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
                     paginas_para_ocr.append((num_pagina, img, timeout_ocr))
 
-        # PASO 2: Si hay páginas escaneadas (ej. carpeta 'alerta'), las mandamos al pool de OCR
         if paginas_para_ocr:
             num_hilos = min(max_workers, os.cpu_count() or 4)
             
             with concurrent.futures.ThreadPoolExecutor(max_workers=num_hilos) as executor:
-                # Se envían solo las imágenes aisladas (PIL Images), cero conflicto con PyMuPDF
                 resultados_ocr = executor.map(_ejecutar_ocr_imagen, paginas_para_ocr)
                 
                 for num_pagina, texto_ocr in resultados_ocr:
                     if texto_ocr:
                         texto_paginas[num_pagina] = texto_ocr
-                    else:
-                        # Fallback por si falló el OCR
-                        texto_paginas[num_pagina] = "[Texto no extraíble]"
 
-        # PASO 3: Reconstruir el documento conservando el orden original
+        # Reconstrucción sin inyectar marcadores ni etiquetas de fallo
         resultado_final = []
         for p in range(len(texto_paginas)):
-            encabezado = f"--- Página {p + 1} ---\n"
-            resultado_final.append(encabezado + texto_paginas.get(p, ""))
+            contenido = texto_paginas.get(p, "").strip()
+            if contenido:
+                resultado_final.append(contenido)
 
         return "\n\n".join(resultado_final)
 
@@ -159,12 +149,7 @@ def extraer_json(ruta):
 # ==========================================================
 # EXTRACCIÓN CSV (OPTIMIZADO PARA EVITAR CONGELAMIENTOS)
 # ==========================================================
-
 def extraer_csv(ruta):
-    """
-    Convierte un CSV a texto en formato registro por registro, evitando 
-    la generación de volúmenes masivos de texto plano inútil.
-    """
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
     
     for sep in [',', ';', '\t']:
@@ -180,9 +165,16 @@ def extraer_csv(ruta):
             
             lineas = []
             cols = df.columns.tolist()
-            # Se procesan las filas en formato 'Columna: Valor' delimitado
             for row in df.head(1000).itertuples(index=False):
-                registro = [f"{col}: {val}" for col, val in zip(cols, row) if pd.notna(val)]
+                registro = []
+                for col, val in zip(cols, row):
+                    if pd.notna(val):
+                        col_str = str(col)
+                        # Si la columna es "Unnamed", solo se incluye el valor
+                        if col_str.startswith("Unnamed:"):
+                            registro.append(f"{val}")
+                        else:
+                            registro.append(f"{col_str}: {val}")
                 if registro:
                     lineas.append(" | ".join(registro))
                 
@@ -190,7 +182,6 @@ def extraer_csv(ruta):
         except Exception:
             continue
 
-    # Fallback de lectura simple
     try:
         with open(ruta_limpia, "r", encoding="utf-8", errors="ignore") as f:
             lineas = [f.readline() for _ in range(1000)]
@@ -198,27 +189,32 @@ def extraer_csv(ruta):
     except Exception:
         return ""
 
-
 # ==========================================================
 # EXTRACCIÓN XLSX
 # ==========================================================
 
 def extraer_xlsx(ruta):
-    """
-    Convierte un archivo Excel a texto.
-    """
     ruta_limpia = ruta.replace("\\\\?\\", "") if ruta.startswith("\\\\?\\") else ruta
     try:
         df = pd.read_excel(ruta_limpia)
         lineas = []
         cols = df.columns.tolist()
         for row in df.head(1000).itertuples(index=False):
-            registro = [f"{col}: {val}" for col, val in zip(cols, row) if pd.notna(val)]
+            registro = []
+            for col, val in zip(cols, row):
+                if pd.notna(val):
+                    col_str = str(col)
+                    if col_str.startswith("Unnamed:"):
+                        registro.append(f"{val}")
+                    else:
+                        registro.append(f"{col_str}: {val}")
             if registro:
                 lineas.append(" | ".join(registro))
         return "\n".join(lineas)
     except Exception:
         return ""
+
+
 
 
 # ==========================================================
@@ -253,12 +249,15 @@ def extraer_pbf(ruta):
 # ==========================================================
 
 def limpiar_texto(texto):
-    """
-    Limpia el texto extraído conservando la estructura de párrafos.
-    """
     if not texto:
         return ""
 
+    # Eliminar marcadores de página, textos de fallo y residuos de Unnamed
+    texto = re.sub(r'--- Página \d+ ---', '', texto)
+    texto = re.sub(r'\[Texto no extraíble\]', '', texto)
+    texto = re.sub(r'Unnamed:\s*\d+:?\s*', '', texto)
+
+    # Limpieza estándar de caracteres
     texto = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]', '', texto)
     texto = re.sub(r'[\uFFF0-\uFFFF]', '', texto)
     texto = re.sub(r'(?m)^\s*\d+\s*$', '', texto)
