@@ -130,7 +130,7 @@ Para solucionar estos problemas sin renunciar a nuestra hipótesis principal, im
 \textbf{Archivo responsable:} \texttt{indexador.py}\\
 Encargado del diseño e implementación del motor de representación vectorial denso. Utilizó el modelo \texttt{sentence-transformers/distiluse-base-multilingual-cased-v1} para codificar los fragmentos (\textit{chunks}) generados en vectores densos de 512 dimensiones, garantizando una alineación semántica multilingüe eficiente. Construyó e indexó los vectores en una base de datos vectorial FAISS mediante un índice de producto interno (\texttt{faiss.IndexFlatIP}) con vectores normalizados $L2$, permitiendo búsquedas rápidas por similitud de coseno. Asimismo, garantizó la persistencia del sistema exportando la base vectorial en el archivo \texttt{index.faiss} y sincronizando los metadatos completos y el contenido textual de cada \textit{chunk} en la base de metadatos \texttt{metadata.jsonl}.
 
-\subsubsection{Módulo 4: Grafo de Conocimiento y Fusión RRF (Luis David Sánchez Salazar)}
+\subsubsection{Módulo 4: Grafo de Conocimiento y Fusión RRF}
 \textbf{Archivos responsables:} \texttt{constructor\_grafo.py}, \texttt{generador.py}\\
 Encargado del componente híbrido del sistema. Implementó un pipeline NER multilingüe para construir el archivo \texttt{grafo.graphml} mapeando entidades (Organizaciones, Locaciones, Personas). Asimismo, desarrolló el algoritmo de recuperación final, cruzando las predicciones de FAISS con los vecinos del grafo mediante Fusión RRF y aplicando \textit{Max Pooling} a nivel de documento.\\
 
@@ -159,8 +159,5 @@ Para dotar al sistema de precisión semántica y entendimiento de entidades clav
     \item \textbf{Agregación y Max Pooling:} Los fragmentos ordenados por su puntaje RRF son sometidos a un proceso de \textit{Max Pooling} a nivel de documento. El sistema agrupa los \textit{chunks} por \texttt{doc\_id} y hereda la máxima puntuación encontrada. Finalmente, se trunca el texto de los fragmentos al límite normativo de 250 palabras y se exporta el top 3 de documentos en formato JSONL.
 \end{enumerate}
 
-\subsubsection{Orquestación y Despliegue (Líder del Equipo)}
-\textbf{Archivo responsable:} \texttt{main.py}\\
-Encargado de unificar los scripts, gestionar las dependencias del entorno virtual, asegurar que los datos fluyan correctamente de un módulo a otro a través de subprocesos, y realizar la entrega oficial del repositorio.
 
 \end{document}
