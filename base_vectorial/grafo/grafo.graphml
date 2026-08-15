@@ -1,0 +1,3327 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d3" for="edge" attr.name="chunk_id" attr.type="string" />
+  <key id="d2" for="edge" attr.name="doc_id" attr.type="string" />
+  <key id="d1" for="edge" attr.name="relacion" attr.type="string" />
+  <key id="d0" for="node" attr.name="tipo" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="CAPACIDADES ESTRATÉGICAS">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="SEGURIDAD DEL ENTORNO ESPACIAL">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="SPACE">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="DEBRIS">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="COUNTERSPACE">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="DINÁMICAS TERRITORIALES">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="ALERTAS">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="TEMPRANAS">
+      <data key="d0">MISC</data>
+    </node>
+    <node id="UKRAINE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ARMED FORCES">
+      <data key="d0">ORG</data>
+    </node>
+    <node id="HUILA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUADALUPE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GARZ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##ÓN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MONAGAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MATURÍN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUÁRICO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LAS MERCEDES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="G">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##U">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##ÁRICO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="EL SOCORRO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LIBERTADOR">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SOTILLO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="URACOA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANZOÁTEGUI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="JOSÉ GREGORIO MONAGAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="INDEPENDENCIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FRANCISCO DE MIRANDA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##UÁRICO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA MARÍA DE IPIRE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="APURE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SAN FERNANDO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="A">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##PURE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PEDRO CAMEJO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COLOMBIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NEIVA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BARAYA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="RIVERA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BOGOTÁ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="D. C.">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="META">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUAMAL">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CUNDINAMARCA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUTIÉRREZ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CARCHI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BOLIVAR">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MONTUFAR">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SAN PEDRO DE HUACA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NARIÑO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="IPIALES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="POTOSÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CÓRDOBA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NARI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##ÑO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PUERRES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FUNES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ALGECIRAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##IGANTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TELLO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ACEVEDO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PALESTINA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAUCA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PIAMONTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PITALITO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SUAZA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LA CRUZ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA ROSA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="EL TABLÓN DE GÓMEZ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LA VEGA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SAN SEBASTIÁN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SAN AGUSTÍN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BOLÍVAR">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PUTUMAYO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SIBUNDOY">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COLÓN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BUESACO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PICHINCHA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAYAMBE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="IMBABURA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PIMAMPIRO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COTOPAXI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LATACUNGA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MEJIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="QUITO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SAQUISILI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SIGCHOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PUJILI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TULCAN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TANGUA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PASTO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COLINAS DO SUL">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAMPINAÇU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FORMOSO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TERESINA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MINAÇU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAVALCANTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MONTE ALEGRE DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA TEREZA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PORANGATU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MONTIVIDIU DO NORTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TROMBAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="DIVINÓPOLIS DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAMPOS BELOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO DOMINGOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MIMOSO DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ÁGUA FRIA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO JOÃO D ' ALIANÇA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NIQUELÂNDIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ALTO PARAÍSO DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="POSSE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="IACIARA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NOVA ROMA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUARANI DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SIMOLÂNDIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÍTIO D ' ABADIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FLORES DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NOVA IGUAÇU DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="URUAÇU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ALTO HORIZONTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAMPOS VERDES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAMPINORTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ESTRELA DO NORTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA RITA DO NOVO DESTINO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO LUIZ DO NORTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MUTUNÓPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GUARI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##NOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ÁGUAS LINDAS DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PADRE BERNARDO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PLANALTINA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="DISTRITO FEDERAL">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BRASÍLIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="DAMOLÂNDIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FORMOSA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MINAS GERAIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BURITIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="VILA BOA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ALVORADA DO NORTE">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="HIDROLINA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NOVA GLÓRIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BARRO ALTO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA ISABEL">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GOIANÉSIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PILAR DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="IPIRANGA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="RIALMA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="VILA PROPÍCIO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CERES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CORUMBÁ DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COCALZINHO DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="JESÚP">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##OLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ITAGUARI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ITAGUARU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="JARAGUÁ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PIRENÓPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO FRANCISCO DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TAQUARAL DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="URUANA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="RIANÁPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ITAUÇU">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="INHUMAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA ROSA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PETROLINA DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CAMPO LIMPO DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANÁP">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="OURO VERDE DE GOIÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BAHIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="COCOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="JABORANDI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CORRENTINA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO DESIDÉRIO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BURITINÓPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="DAMIANÓPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MAMBAÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LUÍS EDUARDO MAGALHÃES">
+      <data key="d0">PER</data>
+    </node>
+    <node id="BARREIRAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PIAUÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="RIBEIRO GONÇALVES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="URUÇUÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANTA FILOMENA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PORTO ALEGRE DO PIAUÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="FORMOSA DO RIO PRETO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BARREIRAS DO PIAUÍ">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="GILBUÉS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="AMARALIN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="BONÓPOLIS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="MARA ROSA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NOVA CRIXÁS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="NOVO PLANALTO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SÃO MIGUEL DO ARAGUAIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="AYACUCHO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="HUANCA SANCOS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="APURIMAC">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CHINCHEROS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CANGALLO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="VILCAS HUAMAN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="HUANTA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="HUAMANGA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="JUNIN">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SATIPO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LA MAR">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CUSCO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LA CONVENCION">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PUNO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="SANDIA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PASCO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="OXAPAMPA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ABANCAY">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANTABAMBA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANTA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CALCA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CARABAYA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="AREQUIPA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LA UNION">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PAUCARTAMBO">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="QUISP">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="##ICANCHI">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="URUBAMBA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="HUANCAVELICA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="TAYACAJA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ACOBAMBA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="CHURCAMPA">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANGARAES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="PARINACOCHAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="LUCANAS">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="AYMARAES">
+      <data key="d0">LOC</data>
+    </node>
+    <node id="ANDAHUAYLAS">
+      <data key="d0">LOC</data>
+    </node>
+    <edge source="CAPACIDADES ESTRATÉGICAS" target="SEGURIDAD DEL ENTORNO ESPACIAL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="CAPACIDADES ESTRATÉGICAS" target="SPACE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="CAPACIDADES ESTRATÉGICAS" target="DEBRIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="SPACE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="DEBRIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="COUNTERSPACE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="DINÁMICAS TERRITORIALES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="ALERTAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="SEGURIDAD DEL ENTORNO ESPACIAL" target="TEMPRANAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="SPACE" target="DEBRIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_002</data>
+    </edge>
+    <edge source="COUNTERSPACE" target="DINÁMICAS TERRITORIALES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="COUNTERSPACE" target="ALERTAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="COUNTERSPACE" target="TEMPRANAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="DINÁMICAS TERRITORIALES" target="ALERTAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="DINÁMICAS TERRITORIALES" target="TEMPRANAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="ALERTAS" target="TEMPRANAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-001</data>
+      <data key="d3">DOC-001_chunk_003</data>
+    </edge>
+    <edge source="UKRAINE" target="ARMED FORCES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-002</data>
+      <data key="d3">DOC-002_chunk_011</data>
+    </edge>
+    <edge source="HUILA" target="GUADALUPE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="HUILA" target="GARZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="HUILA" target="##ÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="HUILA" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="HUILA" target="COLOMBIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="HUILA" target="NEIVA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="HUILA" target="BARAYA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="HUILA" target="RIVERA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="HUILA" target="BOGOTÁ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="HUILA" target="D. C.">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="HUILA" target="ALGECIRAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="HUILA" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="HUILA" target="##IGANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="HUILA" target="TELLO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="HUILA" target="ACEVEDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="HUILA" target="PALESTINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="HUILA" target="PITALITO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="HUILA" target="SUAZA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="HUILA" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="HUILA" target="SAN AGUSTÍN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="GUADALUPE" target="GARZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="GUADALUPE" target="##ÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="GUADALUPE" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="GARZ" target="##ÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="GARZ" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="##ÓN" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_000</data>
+    </edge>
+    <edge source="MONAGAS" target="LIBERTADOR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="MONAGAS" target="SOTILLO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="MONAGAS" target="URACOA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="MONAGAS" target="ANZOÁTEGUI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="MONAGAS" target="JOSÉ GREGORIO MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="MONAGAS" target="INDEPENDENCIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="MATURÍN" target="GUÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="MATURÍN" target="LAS MERCEDES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="MATURÍN" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="MATURÍN" target="##U">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="MATURÍN" target="##ÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="GUÁRICO" target="LAS MERCEDES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="GUÁRICO" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="GUÁRICO" target="##U">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="GUÁRICO" target="##ÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="GUÁRICO" target="EL SOCORRO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="GUÁRICO" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="GUÁRICO" target="LIBERTADOR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="GUÁRICO" target="SOTILLO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="LAS MERCEDES" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="LAS MERCEDES" target="##U">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="LAS MERCEDES" target="##ÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="G" target="##U">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="G" target="##ÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="G" target="##UÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="G" target="SANTA MARÍA DE IPIRE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="G" target="APURE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="G" target="SAN FERNANDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="G" target="##IGANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="##U" target="##ÁRICO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_001</data>
+    </edge>
+    <edge source="EL SOCORRO" target="MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="EL SOCORRO" target="LIBERTADOR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="EL SOCORRO" target="SOTILLO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="LIBERTADOR" target="SOTILLO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_002</data>
+    </edge>
+    <edge source="URACOA" target="ANZOÁTEGUI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="URACOA" target="JOSÉ GREGORIO MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="URACOA" target="INDEPENDENCIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="ANZOÁTEGUI" target="JOSÉ GREGORIO MONAGAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="ANZOÁTEGUI" target="INDEPENDENCIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="ANZOÁTEGUI" target="FRANCISCO DE MIRANDA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_004</data>
+    </edge>
+    <edge source="JOSÉ GREGORIO MONAGAS" target="INDEPENDENCIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_003</data>
+    </edge>
+    <edge source="##UÁRICO" target="SANTA MARÍA DE IPIRE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="##UÁRICO" target="APURE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="##UÁRICO" target="SAN FERNANDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="SANTA MARÍA DE IPIRE" target="APURE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="SANTA MARÍA DE IPIRE" target="SAN FERNANDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="APURE" target="SAN FERNANDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_005</data>
+    </edge>
+    <edge source="A" target="##PURE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="A" target="PEDRO CAMEJO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="A" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="A" target="COLOMBIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="A" target="NEIVA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="##PURE" target="PEDRO CAMEJO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="##PURE" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="##PURE" target="COLOMBIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="##PURE" target="NEIVA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="PEDRO CAMEJO" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="PEDRO CAMEJO" target="COLOMBIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="PEDRO CAMEJO" target="NEIVA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="COLOMBIA" target="NEIVA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_006</data>
+    </edge>
+    <edge source="BARAYA" target="RIVERA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="BARAYA" target="BOGOTÁ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="BARAYA" target="D. C.">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="RIVERA" target="BOGOTÁ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="RIVERA" target="D. C.">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="BOGOTÁ" target="D. C.">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_007</data>
+    </edge>
+    <edge source="META" target="GUAMAL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="META" target="CUNDINAMARCA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="META" target="GUTIÉRREZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="META" target="CARCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="META" target="BOLIVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUAMAL" target="CUNDINAMARCA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUAMAL" target="GUTIÉRREZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUAMAL" target="CARCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUAMAL" target="BOLIVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="CUNDINAMARCA" target="GUTIÉRREZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="CUNDINAMARCA" target="CARCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="CUNDINAMARCA" target="BOLIVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUTIÉRREZ" target="CARCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="GUTIÉRREZ" target="BOLIVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="CARCHI" target="BOLIVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_008</data>
+    </edge>
+    <edge source="CARCHI" target="MONTUFAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_009</data>
+    </edge>
+    <edge source="CARCHI" target="SAN PEDRO DE HUACA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_010</data>
+    </edge>
+    <edge source="CARCHI" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="CARCHI" target="IPIALES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_010</data>
+    </edge>
+    <edge source="CARCHI" target="TULCAN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="CARCHI" target="TANGUA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="CARCHI" target="PASTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="SAN PEDRO DE HUACA" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_010</data>
+    </edge>
+    <edge source="SAN PEDRO DE HUACA" target="IPIALES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_010</data>
+    </edge>
+    <edge source="NARIÑO" target="IPIALES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_010</data>
+    </edge>
+    <edge source="NARIÑO" target="CÓRDOBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARIÑO" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARIÑO" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARIÑO" target="PUERRES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARIÑO" target="FUNES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="NARIÑO" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="NARIÑO" target="ALGECIRAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="NARIÑO" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="NARIÑO" target="##IGANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="NARIÑO" target="BUESACO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_019</data>
+    </edge>
+    <edge source="NARIÑO" target="TANGUA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="NARIÑO" target="PASTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="POTOSÍ" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="POTOSÍ" target="CÓRDOBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="POTOSÍ" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="POTOSÍ" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="POTOSÍ" target="PUERRES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="CÓRDOBA" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="CÓRDOBA" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="CÓRDOBA" target="PUERRES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARI" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="NARI" target="PUERRES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="NARI" target="EL TABLÓN DE GÓMEZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="##ÑO" target="PUERRES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_011</data>
+    </edge>
+    <edge source="##ÑO" target="EL TABLÓN DE GÓMEZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="FUNES" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="FUNES" target="ALGECIRAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="FUNES" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="FUNES" target="##IGANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="ALGECIRAS" target="G">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="ALGECIRAS" target="##IGANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_012</data>
+    </edge>
+    <edge source="TELLO" target="ACEVEDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="TELLO" target="PALESTINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="ACEVEDO" target="PALESTINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_013</data>
+    </edge>
+    <edge source="CAUCA" target="PIAMONTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_014</data>
+    </edge>
+    <edge source="CAUCA" target="SANTA ROSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="CAUCA" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="CAUCA" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="CAUCA" target="EL TABLÓN DE GÓMEZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="CAUCA" target="LA VEGA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="CAUCA" target="SAN SEBASTIÁN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="CAUCA" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="CAUCA" target="SAN AGUSTÍN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="CAUCA" target="BOLÍVAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="CAUCA" target="PUTUMAYO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="CAUCA" target="SIBUNDOY">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="CAUCA" target="COLÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="PITALITO" target="SUAZA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="PITALITO" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="SUAZA" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_015</data>
+    </edge>
+    <edge source="LA CRUZ" target="CAUCA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="LA CRUZ" target="SANTA ROSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="LA CRUZ" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="LA CRUZ" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="LA CRUZ" target="EL TABLÓN DE GÓMEZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="SANTA ROSA" target="NARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="SANTA ROSA" target="##ÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="SANTA ROSA" target="EL TABLÓN DE GÓMEZ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_016</data>
+    </edge>
+    <edge source="LA VEGA" target="SAN SEBASTIÁN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="LA VEGA" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="LA VEGA" target="SAN AGUSTÍN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="SAN SEBASTIÁN" target="HUILA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="SAN SEBASTIÁN" target="SAN AGUSTÍN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_017</data>
+    </edge>
+    <edge source="BOLÍVAR" target="PUTUMAYO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="BOLÍVAR" target="SIBUNDOY">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="BOLÍVAR" target="COLÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="PUTUMAYO" target="SIBUNDOY">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="PUTUMAYO" target="COLÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="SIBUNDOY" target="COLÓN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_018</data>
+    </edge>
+    <edge source="PICHINCHA" target="CAYAMBE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="PICHINCHA" target="IMBABURA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="PICHINCHA" target="PIMAMPIRO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="PICHINCHA" target="COTOPAXI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="PICHINCHA" target="MEJIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="PICHINCHA" target="QUITO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="CAYAMBE" target="IMBABURA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="CAYAMBE" target="PIMAMPIRO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="CAYAMBE" target="COTOPAXI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="IMBABURA" target="PIMAMPIRO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="IMBABURA" target="COTOPAXI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="PIMAMPIRO" target="COTOPAXI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_020</data>
+    </edge>
+    <edge source="COTOPAXI" target="SAQUISILI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="COTOPAXI" target="SIGCHOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="COTOPAXI" target="PUJILI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="LATACUNGA" target="PICHINCHA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="LATACUNGA" target="MEJIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="LATACUNGA" target="QUITO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="MEJIA" target="QUITO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_021</data>
+    </edge>
+    <edge source="SAQUISILI" target="SIGCHOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="SAQUISILI" target="PUJILI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="SIGCHOS" target="PUJILI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_022</data>
+    </edge>
+    <edge source="TULCAN" target="NARIÑO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="TULCAN" target="TANGUA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="TULCAN" target="PASTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="TANGUA" target="PASTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_023</data>
+    </edge>
+    <edge source="GOIÁS" target="COLINAS DO SUL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_024</data>
+    </edge>
+    <edge source="GOIÁS" target="CAMPINAÇU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_025</data>
+    </edge>
+    <edge source="GOIÁS" target="FORMOSO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="GOIÁS" target="MINAÇU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="GOIÁS" target="CAVALCANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="GOIÁS" target="MONTE ALEGRE DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="GOIÁS" target="SANTA TEREZA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="GOIÁS" target="PORANGATU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="GOIÁS" target="MONTIVIDIU DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="GOIÁS" target="TROMBAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="GOIÁS" target="DIVINÓPOLIS DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="GOIÁS" target="CAMPOS BELOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_029</data>
+    </edge>
+    <edge source="GOIÁS" target="SÃO DOMINGOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_030</data>
+    </edge>
+    <edge source="GOIÁS" target="MIMOSO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_030</data>
+    </edge>
+    <edge source="GOIÁS" target="SÃO JOÃO D ' ALIANÇA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="GOIÁS" target="NIQUELÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="GOIÁS" target="ALTO PARAÍSO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="GOIÁS" target="POSSE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="GOIÁS" target="IACIARA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="GOIÁS" target="NOVA ROMA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="GOIÁS" target="GUARANI DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="GOIÁS" target="SIMOLÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="GOIÁS" target="SÍTIO D ' ABADIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_034</data>
+    </edge>
+    <edge source="GOIÁS" target="FLORES DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_035</data>
+    </edge>
+    <edge source="GOIÁS" target="NOVA IGUAÇU DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_035</data>
+    </edge>
+    <edge source="GOIÁS" target="ALTO HORIZONTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="GOIÁS" target="CAMPOS VERDES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="GOIÁS" target="CAMPINORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="GOIÁS" target="ESTRELA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="GOIÁS" target="SANTA RITA DO NOVO DESTINO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="GOIÁS" target="SÃO LUIZ DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="GOIÁS" target="MUTUNÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="GOIÁS" target="GUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="GOIÁS" target="##NOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="GOIÁS" target="ÁGUAS LINDAS DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_039</data>
+    </edge>
+    <edge source="GOIÁS" target="PADRE BERNARDO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="GOIÁS" target="PLANALTINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="GOIÁS" target="DISTRITO FEDERAL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="GOIÁS" target="DAMOLÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="GOIÁS" target="FORMOSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="GOIÁS" target="VILA BOA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="GOIÁS" target="ALVORADA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="GOIÁS" target="HIDROLINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="GOIÁS" target="NOVA GLÓRIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="GOIÁS" target="BARRO ALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="GOIÁS" target="SANTA ISABEL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_044</data>
+    </edge>
+    <edge source="GOIÁS" target="GOIANÉSIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_045</data>
+    </edge>
+    <edge source="GOIÁS" target="PILAR DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_045</data>
+    </edge>
+    <edge source="GOIÁS" target="RIALMA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="GOIÁS" target="VILA PROPÍCIO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="GOIÁS" target="CERES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="GOIÁS" target="CORUMBÁ DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="GOIÁS" target="COCALZINHO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="GOIÁS" target="JESÚP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="GOIÁS" target="##OLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="GOIÁS" target="ITAGUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="GOIÁS" target="ITAGUARU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="GOIÁS" target="JARAGUÁ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_049</data>
+    </edge>
+    <edge source="GOIÁS" target="PIRENÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_050</data>
+    </edge>
+    <edge source="GOIÁS" target="SÃO FRANCISCO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_050</data>
+    </edge>
+    <edge source="GOIÁS" target="URUANA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="GOIÁS" target="RIANÁPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="GOIÁS" target="ITAUÇU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="GOIÁS" target="INHUMAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="GOIÁS" target="SANTA ROSA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="GOIÁS" target="PETROLINA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="GOIÁS" target="CAMPO LIMPO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="GOIÁS" target="ANÁP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="GOIÁS" target="OURO VERDE DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_054</data>
+    </edge>
+    <edge source="GOIÁS" target="BURITINÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="GOIÁS" target="DAMIANÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="GOIÁS" target="MAMBAÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="GOIÁS" target="MINAS GERAIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="GOIÁS" target="AMARALIN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="GOIÁS" target="BONÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="GOIÁS" target="MARA ROSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="GOIÁS" target="NOVA CRIXÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="GOIÁS" target="NOVO PLANALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="GOIÁS" target="SÃO MIGUEL DO ARAGUAIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_064</data>
+    </edge>
+    <edge source="CAMPINAÇU" target="FORMOSO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_025</data>
+    </edge>
+    <edge source="TERESINA DE GOIÁS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="TERESINA DE GOIÁS" target="MINAÇU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="TERESINA DE GOIÁS" target="CAVALCANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="MINAÇU" target="CAVALCANTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_026</data>
+    </edge>
+    <edge source="MONTE ALEGRE DE GOIÁS" target="SANTA TEREZA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="MONTE ALEGRE DE GOIÁS" target="PORANGATU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="SANTA TEREZA DE GOIÁS" target="PORANGATU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_027</data>
+    </edge>
+    <edge source="MONTIVIDIU DO NORTE" target="TROMBAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="MONTIVIDIU DO NORTE" target="DIVINÓPOLIS DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="TROMBAS" target="DIVINÓPOLIS DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_028</data>
+    </edge>
+    <edge source="SÃO DOMINGOS" target="MIMOSO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_030</data>
+    </edge>
+    <edge source="ÁGUA FRIA DE GOIÁS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="ÁGUA FRIA DE GOIÁS" target="SÃO JOÃO D ' ALIANÇA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="ÁGUA FRIA DE GOIÁS" target="NIQUELÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="SÃO JOÃO D ' ALIANÇA" target="NIQUELÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_031</data>
+    </edge>
+    <edge source="ALTO PARAÍSO DE GOIÁS" target="POSSE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="ALTO PARAÍSO DE GOIÁS" target="IACIARA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="POSSE" target="IACIARA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_032</data>
+    </edge>
+    <edge source="NOVA ROMA" target="GUARANI DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="NOVA ROMA" target="SIMOLÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="GUARANI DE GOIÁS" target="SIMOLÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_033</data>
+    </edge>
+    <edge source="FLORES DE GOIÁS" target="NOVA IGUAÇU DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_035</data>
+    </edge>
+    <edge source="URUAÇU" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="URUAÇU" target="ALTO HORIZONTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="URUAÇU" target="CAMPOS VERDES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="ALTO HORIZONTE" target="CAMPOS VERDES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_036</data>
+    </edge>
+    <edge source="CAMPINORTE" target="ESTRELA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="CAMPINORTE" target="SANTA RITA DO NOVO DESTINO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="ESTRELA DO NORTE" target="SANTA RITA DO NOVO DESTINO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_037</data>
+    </edge>
+    <edge source="SÃO LUIZ DO NORTE" target="MUTUNÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="SÃO LUIZ DO NORTE" target="GUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="SÃO LUIZ DO NORTE" target="##NOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="MUTUNÓPOLIS" target="GUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="MUTUNÓPOLIS" target="##NOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="GUARI" target="##NOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_038</data>
+    </edge>
+    <edge source="PADRE BERNARDO" target="PLANALTINA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="PADRE BERNARDO" target="DISTRITO FEDERAL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="PLANALTINA" target="DISTRITO FEDERAL">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_040</data>
+    </edge>
+    <edge source="BRASÍLIA" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="BRASÍLIA" target="DAMOLÂNDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="BRASÍLIA" target="FORMOSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="DAMOLÂNDIA" target="FORMOSA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_041</data>
+    </edge>
+    <edge source="MINAS GERAIS" target="BURITIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="MINAS GERAIS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="MINAS GERAIS" target="VILA BOA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="MINAS GERAIS" target="ALVORADA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="MINAS GERAIS" target="FORMOSO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="BURITIS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="BURITIS" target="VILA BOA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="BURITIS" target="ALVORADA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="VILA BOA" target="ALVORADA DO NORTE">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_042</data>
+    </edge>
+    <edge source="HIDROLINA" target="NOVA GLÓRIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="HIDROLINA" target="BARRO ALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="NOVA GLÓRIA" target="BARRO ALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_043</data>
+    </edge>
+    <edge source="GOIANÉSIA" target="PILAR DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_045</data>
+    </edge>
+    <edge source="IPIRANGA DE GOIÁS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="IPIRANGA DE GOIÁS" target="RIALMA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="IPIRANGA DE GOIÁS" target="VILA PROPÍCIO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="RIALMA" target="VILA PROPÍCIO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_046</data>
+    </edge>
+    <edge source="CERES" target="CORUMBÁ DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="CERES" target="COCALZINHO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="CORUMBÁ DE GOIÁS" target="COCALZINHO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_047</data>
+    </edge>
+    <edge source="JESÚP" target="##OLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="JESÚP" target="ITAGUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="JESÚP" target="ITAGUARU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="##OLIS" target="ITAGUARI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="##OLIS" target="ITAGUARU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="ITAGUARI" target="ITAGUARU">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_048</data>
+    </edge>
+    <edge source="PIRENÓPOLIS" target="SÃO FRANCISCO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_050</data>
+    </edge>
+    <edge source="TAQUARAL DE GOIÁS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="TAQUARAL DE GOIÁS" target="URUANA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="TAQUARAL DE GOIÁS" target="RIANÁPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="URUANA" target="RIANÁPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_051</data>
+    </edge>
+    <edge source="ITAUÇU" target="INHUMAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="ITAUÇU" target="SANTA ROSA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="INHUMAS" target="SANTA ROSA DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_052</data>
+    </edge>
+    <edge source="PETROLINA DE GOIÁS" target="CAMPO LIMPO DE GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="PETROLINA DE GOIÁS" target="ANÁP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="CAMPO LIMPO DE GOIÁS" target="ANÁP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_053</data>
+    </edge>
+    <edge source="BAHIA" target="COCOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_055</data>
+    </edge>
+    <edge source="BAHIA" target="JABORANDI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_055</data>
+    </edge>
+    <edge source="BAHIA" target="SÃO DESIDÉRIO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="BAHIA" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="BAHIA" target="BURITINÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="BAHIA" target="LUÍS EDUARDO MAGALHÃES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="BAHIA" target="BARREIRAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="BAHIA" target="PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="BAHIA" target="RIBEIRO GONÇALVES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="BAHIA" target="FORMOSA DO RIO PRETO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="BAHIA" target="BARREIRAS DO PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="COCOS" target="JABORANDI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_055</data>
+    </edge>
+    <edge source="CORRENTINA" target="BAHIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="CORRENTINA" target="SÃO DESIDÉRIO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="CORRENTINA" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="CORRENTINA" target="BURITINÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="SÃO DESIDÉRIO" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="SÃO DESIDÉRIO" target="BURITINÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_056</data>
+    </edge>
+    <edge source="DAMIANÓPOLIS" target="MAMBAÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="DAMIANÓPOLIS" target="MINAS GERAIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="DAMIANÓPOLIS" target="FORMOSO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="MAMBAÍ" target="MINAS GERAIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="MAMBAÍ" target="FORMOSO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_057</data>
+    </edge>
+    <edge source="LUÍS EDUARDO MAGALHÃES" target="BARREIRAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="LUÍS EDUARDO MAGALHÃES" target="PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="LUÍS EDUARDO MAGALHÃES" target="RIBEIRO GONÇALVES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="BARREIRAS" target="PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="BARREIRAS" target="RIBEIRO GONÇALVES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="PIAUÍ" target="RIBEIRO GONÇALVES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_058</data>
+    </edge>
+    <edge source="PIAUÍ" target="URUÇUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_059</data>
+    </edge>
+    <edge source="PIAUÍ" target="SANTA FILOMENA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_060</data>
+    </edge>
+    <edge source="PIAUÍ" target="BARREIRAS DO PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="PIAUÍ" target="GILBUÉS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="PIAUÍ" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="PIAUÍ" target="AMARALIN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="PIAUÍ" target="BONÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="PORTO ALEGRE DO PIAUÍ" target="BAHIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="PORTO ALEGRE DO PIAUÍ" target="FORMOSA DO RIO PRETO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="PORTO ALEGRE DO PIAUÍ" target="PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="PORTO ALEGRE DO PIAUÍ" target="BARREIRAS DO PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="FORMOSA DO RIO PRETO" target="PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="FORMOSA DO RIO PRETO" target="BARREIRAS DO PIAUÍ">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_061</data>
+    </edge>
+    <edge source="GILBUÉS" target="GOIÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="GILBUÉS" target="AMARALIN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="GILBUÉS" target="BONÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="AMARALIN" target="BONÓPOLIS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_062</data>
+    </edge>
+    <edge source="MARA ROSA" target="NOVA CRIXÁS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="MARA ROSA" target="NOVO PLANALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="NOVA CRIXÁS" target="NOVO PLANALTO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_063</data>
+    </edge>
+    <edge source="AYACUCHO" target="HUANCA SANCOS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="AYACUCHO" target="APURIMAC">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="AYACUCHO" target="CHINCHEROS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="AYACUCHO" target="VILCAS HUAMAN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="AYACUCHO" target="HUANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="AYACUCHO" target="HUAMANGA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="AYACUCHO" target="JUNIN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="AYACUCHO" target="SATIPO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="AYACUCHO" target="LA MAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="AYACUCHO" target="PARINACOCHAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="HUANCA SANCOS" target="APURIMAC">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="HUANCA SANCOS" target="CHINCHEROS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="APURIMAC" target="CHINCHEROS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_065</data>
+    </edge>
+    <edge source="APURIMAC" target="ABANCAY">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_069</data>
+    </edge>
+    <edge source="APURIMAC" target="ANTABAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="APURIMAC" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="APURIMAC" target="ANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="APURIMAC" target="AYMARAES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+    <edge source="APURIMAC" target="ANDAHUAYLAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+    <edge source="CANGALLO" target="AYACUCHO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="CANGALLO" target="VILCAS HUAMAN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="CANGALLO" target="HUANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="VILCAS HUAMAN" target="HUANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_066</data>
+    </edge>
+    <edge source="HUAMANGA" target="JUNIN">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="HUAMANGA" target="SATIPO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="HUAMANGA" target="LA MAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="JUNIN" target="SATIPO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="JUNIN" target="LA MAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="SATIPO" target="LA MAR">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_067</data>
+    </edge>
+    <edge source="CUSCO" target="LA CONVENCION">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="CUSCO" target="PUNO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="CUSCO" target="SANDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="CUSCO" target="PASCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="CUSCO" target="OXAPAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="CUSCO" target="ANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="CUSCO" target="PAUCARTAMBO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="CUSCO" target="QUISP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="CUSCO" target="##ICANCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="CUSCO" target="URUBAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="CUSCO" target="HUANCAVELICA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="CUSCO" target="TAYACAJA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="CUSCO" target="ACOBAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="LA CONVENCION" target="PUNO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="LA CONVENCION" target="SANDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="LA CONVENCION" target="PASCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="LA CONVENCION" target="OXAPAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="PUNO" target="SANDIA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="PUNO" target="PASCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="PUNO" target="OXAPAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="PUNO" target="CARABAYA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="PUNO" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="SANDIA" target="PASCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="SANDIA" target="OXAPAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="PASCO" target="OXAPAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_068</data>
+    </edge>
+    <edge source="ANTABAMBA" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="ANTABAMBA" target="ANTA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_070</data>
+    </edge>
+    <edge source="CALCA" target="PUNO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="CALCA" target="CARABAYA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="CALCA" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="CARABAYA" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_071</data>
+    </edge>
+    <edge source="AREQUIPA" target="LA UNION">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="AREQUIPA" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="AREQUIPA" target="PAUCARTAMBO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="AREQUIPA" target="QUISP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="AREQUIPA" target="##ICANCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="LA UNION" target="CUSCO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="LA UNION" target="PAUCARTAMBO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="LA UNION" target="QUISP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="LA UNION" target="##ICANCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="PAUCARTAMBO" target="QUISP">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="PAUCARTAMBO" target="##ICANCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="QUISP" target="##ICANCHI">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_072</data>
+    </edge>
+    <edge source="URUBAMBA" target="HUANCAVELICA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="URUBAMBA" target="TAYACAJA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="URUBAMBA" target="ACOBAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="TAYACAJA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="ACOBAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="CHURCAMPA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_074</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="ANGARAES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="AYACUCHO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="HUANCAVELICA" target="PARINACOCHAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="TAYACAJA" target="ACOBAMBA">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_073</data>
+    </edge>
+    <edge source="ANGARAES" target="AYACUCHO">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="ANGARAES" target="PARINACOCHAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_075</data>
+    </edge>
+    <edge source="LUCANAS" target="APURIMAC">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+    <edge source="LUCANAS" target="AYMARAES">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+    <edge source="LUCANAS" target="ANDAHUAYLAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+    <edge source="AYMARAES" target="ANDAHUAYLAS">
+      <data key="d1">CO_OCURRE_EN_CHUNK</data>
+      <data key="d2">DOC-003</data>
+      <data key="d3">DOC-003_chunk_076</data>
+    </edge>
+  </graph>
+</graphml>
