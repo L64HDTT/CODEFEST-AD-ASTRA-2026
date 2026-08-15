@@ -2,7 +2,7 @@
 1. Descargar tesseract-OCR y añadirlo al PATH. --- >> PATH recomendado --->> C:\Program Files\Tesseract-OCR\
 
 2. Instalar librerias y dependencias directamente en la terminal usando el requirements.txt:
-    **--->> pip install -r requirements2.txt <<---**
+    **--->> pip install -r requirements.txt <<---**
 
 **INSTRUCCIONES PARA CORRER EL CÓDIGO:**
 El proceso principal se realiza en dos partes diferentes. La primera mitad consiste en la extracción y embedding de los textos,
