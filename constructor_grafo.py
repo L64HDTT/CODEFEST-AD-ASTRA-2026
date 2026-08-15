@@ -2,6 +2,8 @@ import json
 import os
 import networkx as nx
 from transformers import pipeline
+import torch
+from tqdm import tqdm  # Importamos la barra de progreso
 
 def procesar_chunk_para_grafo(texto, doc_id, chunk_id, ner_pipeline, grafo):
     """Extrae entidades multilingües y relaciones de un fragmento y las añade al grafo."""
@@ -45,42 +47,57 @@ def procesar_chunk_para_grafo(texto, doc_id, chunk_id, ner_pipeline, grafo):
                 )
 
 def main():
-    # 1. Cargar el modelo NER multilingüe de Hugging Face
-    print("Cargando modelo NER multilingüe (esto puede tardar la primera vez)...")
+    # --- CONFIGURACIÓN DE PRUEBAS ---
+    # Cambia a None cuando quieras procesar TODO el corpus final
+    LIMITE_PRUEBAS = 100 
+    
+    # 1. Configurar dispositivo (GPU si está disponible, sino CPU)
+    dispositivo = 0 if torch.cuda.is_available() else -1
+    motor = "GPU" if dispositivo == 0 else "CPU"
+    
+    # 2. Cargar el modelo NER multilingüe de Hugging Face
+    print(f"Cargando modelo NER multilingüe en {motor} (esto puede tardar la primera vez)...")
     ner_pipeline = pipeline(
         "ner", 
         model="Babelscape/wikineural-multilingual-ner", 
-        aggregation_strategy="simple"
+        aggregation_strategy="simple",
+        device=dispositivo # Se inyecta el dispositivo aquí
     )
     
-    # 2. Inicializar el grafo dirigido
+    # 3. Inicializar el grafo dirigido
     G = nx.DiGraph()
     
-    # 3. Definir la ruta relativa estricta al metadata.jsonl generado por el indexador
-    # Ajusta el nombre de la carpeta según como la haya nombrado tu equipo
+    # 4. Definir la ruta relativa estricta al metadata.jsonl
     ruta_metadata = "base_vectorial/encoder_distiluse-base-multilingual-cased-v1/metadata.jsonl"
     
     if not os.path.exists(ruta_metadata):
         print(f"Error: No se encontró el archivo {ruta_metadata}. Ejecuta el indexador primero.")
         return
         
-    # 4. Procesar el archivo JSONL línea por línea
-    print(f"Procesando fragmentos desde {ruta_metadata}...")
+    # 5. Leer las líneas del archivo
+    print(f"Leyendo fragmentos desde {ruta_metadata}...")
     with open(ruta_metadata, 'r', encoding='utf-8') as f:
-        for linea in f:
-            if not linea.strip():
-                continue
+        lineas = [linea for linea in f if linea.strip()]
+        
+    # Aplicar límite de pruebas si está configurado
+    if LIMITE_PRUEBAS:
+        print(f"\n¡MODO DE PRUEBA ACTIVADO! Se procesarán solo {LIMITE_PRUEBAS} fragmentos.")
+        lineas = lineas[:LIMITE_PRUEBAS]
+    
+    # 6. Procesar línea por línea CON BARRA DE PROGRESO (tqdm)
+    for linea in tqdm(lineas, desc="Generando Nodos y Aristas NER"):
+        chunk_data = json.loads(linea)
+        
+        # Recuperamos usando .get() para "texto" o "text" por seguridad
+        texto = chunk_data.get("texto", chunk_data.get("text", ""))
+        doc_id = chunk_data.get("doc_id", "")
+        chunk_id = chunk_data.get("chunk_id", "")
+        
+        # Solo procesar si el chunk tiene los datos obligatorios
+        if texto and doc_id and chunk_id:
+            procesar_chunk_para_grafo(texto, doc_id, chunk_id, ner_pipeline, G)
                 
-            chunk_data = json.loads(linea)
-            texto = chunk_data.get("text", "")
-            doc_id = chunk_data.get("doc_id", "")
-            chunk_id = chunk_data.get("chunk_id", "")
-            
-            # Solo procesar si el chunk tiene los datos obligatorios
-            if texto and doc_id and chunk_id:
-                procesar_chunk_para_grafo(texto, doc_id, chunk_id, ner_pipeline, G)
-                
-    # 5. Exportar cumpliendo estrictamente con la ruta y formato del reto
+    # 7. Exportar cumpliendo estrictamente con la ruta y formato del reto
     print(f"\nProcesamiento terminado. Nodos creados: {G.number_of_nodes()} | Aristas: {G.number_of_edges()}")
     
     ruta_exportacion = "grafo/grafo.graphml"
