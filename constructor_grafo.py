@@ -49,7 +49,7 @@ def procesar_chunk_para_grafo(texto, doc_id, chunk_id, ner_pipeline, grafo):
 def main():
     # --- CONFIGURACIÓN DE PRUEBAS ---
     # Cambia a None cuando quieras procesar TODO el corpus final
-    LIMITE_PRUEBAS = 100 
+    LIMITE_PRUEBAS = None 
     
     # 1. Configurar dispositivo (GPU si está disponible, sino CPU)
     dispositivo = 0 if torch.cuda.is_available() else -1
